@@ -1,5 +1,7 @@
 
 const Dashboard = ({ user }) => {
+    console.log({user});
+    
     if (!user) {
         return (
             <p>Please sign in</p>

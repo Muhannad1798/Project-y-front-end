@@ -10,6 +10,8 @@ export const signUp = async (data) => {
 export const signIn = async (data) => {
     const response = await client.post('/auth/signin', data)
     const token = response.data.token
+    console.log(response.data);
+    
     localStorage.setItem('authToken', token)
     return response.data
 }

@@ -13,6 +13,8 @@ function App() {
   const getUserProfile = async () => {
     try {
       const data = await getProfile()
+      console.log(data);
+      
       setUser(data)
     } catch (error) {
       setUser(null)
