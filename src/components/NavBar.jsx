@@ -18,7 +18,6 @@ const NavBar = ({ logOut, user }) => {
                                 onClick={logOut}
                             >Log out</Link>
                         </li>
-                        <p>Welcome, {user.username}</p>
                     </>
                     :
                     <>
