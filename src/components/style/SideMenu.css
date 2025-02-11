@@ -38,10 +38,3 @@
 .sidebar__menu li:hover {
   color: #1da1f2;
 }
-
-.sidebar {
-  width: 100%;
-  height: auto;
-  box-shadow: none;
-  padding: 15px;
-}
