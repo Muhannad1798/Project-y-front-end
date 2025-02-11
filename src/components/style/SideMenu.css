@@ -1,0 +1,47 @@
+/* Sidebar Styles */
+.sidebar {
+  width: 300px;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+}
+
+.sidebar__top {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.sidebar__top h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1da1f2;
+}
+
+.sidebar__menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar__menu li {
+  margin: 20px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #14171a;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.sidebar__menu li:hover {
+  color: #1da1f2;
+}
+
+.sidebar {
+  width: 100%;
+  height: auto;
+  box-shadow: none;
+  padding: 15px;
+}
