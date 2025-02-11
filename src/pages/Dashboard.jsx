@@ -1,6 +1,9 @@
 import '../App.css'
 import { Link } from 'react-router-dom'
-
+import './post/Post'
+import Post from './post/Post'
+import Tweet from './tweet/Tweet'
+import SideMenu from '../components/SideMenu'
 const Dashboard = ({ logOut, user }) => {
   console.log({ user })
 
@@ -11,52 +14,20 @@ const Dashboard = ({ logOut, user }) => {
   return (
     <>
       <div className="app">
-        <div className="sidebar">
-          <div className="sidebar__top">
-            <h2>Logo</h2>
-          </div>
-          <div className="sidebar__menu">
-            <ul>
-              <li>Home</li>
-              <li>Explore</li>
-              <li>Notifications</li>
-              <li>Messages</li>
-              <li>Bookmarks</li>
-              <li>
-                <a to="/" onClick={logOut}>
-                  Log out
-                </a>
-              </li>
-              <li>Profile</li>
-            </ul>
-          </div>
-        </div>
-
+        <SideMenu logOut={logOut} />
         <div className="feed">
           <div className="feed__header">
             <h2>Home</h2>
           </div>
-          <div className="tweetBox">
-            <textarea placeholder="What's happening?" rows="4" />
-            <button>Tweet</button>
-          </div>
-          <div className="tweets">
-            {/* Example tweet */}
-            <div className="tweet">
-              <div className="tweet__header">
-                <h3>User Name</h3>
-                <p>@username</p>
-              </div>
-              <p className="tweet__content">This is an example tweet!</p>
-            </div>
-          </div>
+          <Tweet />
+          <Post />
         </div>
 
         <div className="rightSidebar">
-          <h3>Trends for You</h3>
+          <h3>People you might know</h3>
           {/* Example trending topic */}
           <div className="trend">
-            <p>#TrendingTopic</p>
+            <p>Random profile</p>
           </div>
         </div>
       </div>
