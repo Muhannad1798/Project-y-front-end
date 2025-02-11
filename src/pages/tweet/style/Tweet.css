@@ -1,0 +1,45 @@
+/* Tweet Box Styling */
+.tweetBox {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tweetBox textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e6ecf0;
+  border-radius: 15px;
+  font-size: 16px;
+  resize: none;
+  margin-bottom: 15px;
+  outline: none;
+}
+
+.tweetBox textarea:focus {
+  border-color: #1da1f2;
+}
+
+.tweetBox button {
+  width: 100%;
+  background-color: #1da1f2;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tweetBox button:hover {
+  background-color: #1991d0;
+}
+
+.tweetBox button {
+  font-size: 14px;
+}
