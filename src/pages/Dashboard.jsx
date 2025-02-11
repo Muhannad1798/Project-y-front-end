@@ -14,7 +14,11 @@ const Dashboard = ({ logOut, user }) => {
   return (
     <>
       <div className="app">
-        <SideMenu logOut={logOut} />
+        <div className="sidebar">
+          <div className="sidebar__top">
+          <SideMenu logOut={logOut} />
+          </div>
+         </div>
         <div className="feed">
           <div className="feed__header">
             <h2>Home</h2>
