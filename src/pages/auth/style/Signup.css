@@ -1,0 +1,119 @@
+/* Main container centered */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f8fa; /* Soft background like Twitter */
+  font-family: 'Arial', sans-serif;
+}
+
+/* Title */
+.form-title {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  color: #1da1f2; /* Twitter blue */
+  margin-bottom: 20px;
+}
+
+/* Error message styling */
+.error-message {
+  color: red;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+/* Form container styling */
+.signup-form {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+/* Input fields */
+.input-field {
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  border: 1px solid #e1e8ed; /* Light gray border */
+  border-radius: 8px;
+  font-size: 16px;
+  color: #14171a;
+  background-color: #f4f8fa;
+  outline: none;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.input:focus {
+  border-color: #1da1f2;
+  background-color: #ffffff;
+}
+
+/* Button styling */
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-btn {
+  background-color: #1da1f2; /* Twitter blue */
+  border: none;
+  color: white;
+}
+
+.signup-btn:hover {
+  background-color: #1991d0; /* Slightly darker blue on hover */
+}
+
+.cancel-btn {
+  background-color: #e1e8ed; /* Light gray for cancel button */
+  color: #14171a;
+  border: none;
+}
+
+.cancel-btn:hover {
+  background-color: #ccd6dd; /* Slightly darker gray on hover */
+}
+
+/* Section to align buttons */
+.button-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+button[type='button'] {
+  width: 48%; /* 48% to fit both buttons side by side */
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .signup-form {
+    padding: 20px;
+    width: 90%;
+  }
+
+  .form-title {
+    font-size: 28px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+}

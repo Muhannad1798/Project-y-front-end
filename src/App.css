@@ -1,3 +1,18 @@
+/* Reset some default styles for a clean slate */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background-color: #f5f8fa; /* Light background */
+  color: #14171a; /* Text color */
+  font-family: 'Arial', sans-serif;
+}
+
+/* Main App Layout */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -7,11 +22,12 @@
   min-height: 100vh;
 }
 
+/* Logo Styling */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
-  transition: filter 300ms;
+  transition: filter 300ms ease;
 }
 
 .logo:hover {
@@ -26,7 +42,6 @@
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
@@ -38,10 +53,219 @@
   }
 }
 
-.card {
-  padding: 2em;
+/* App Container */
+.app {
+  display: flex;
+  background-color: #e6ecf0;
+  height: 100vh;
 }
 
-.read-the-docs {
-  color: #888;
+/* Sidebar Styles */
+.sidebar {
+  width: 300px;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+}
+
+.sidebar__top {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.sidebar__top h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1da1f2;
+}
+
+.sidebar__menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar__menu li {
+  margin: 20px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #14171a;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.sidebar__menu li:hover {
+  color: #1da1f2;
+}
+
+/* Feed Styles */
+.feed {
+  flex-grow: 1;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.feed__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #e6ecf0;
+  padding-bottom: 10px;
+}
+
+.feed__header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #14171a;
+}
+
+/* Tweet Box Styling */
+.tweetBox {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tweetBox textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e6ecf0;
+  border-radius: 15px;
+  font-size: 16px;
+  resize: none;
+  margin-bottom: 15px;
+  outline: none;
+}
+
+.tweetBox textarea:focus {
+  border-color: #1da1f2;
+}
+
+.tweetBox button {
+  width: 100%;
+  background-color: #1da1f2;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tweetBox button:hover {
+  background-color: #1991d0;
+}
+
+/* Tweet Styling */
+.tweets {
+  margin-top: 20px;
+}
+
+.tweet {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tweet__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tweet__header h3 {
+  font-size: 18px;
+  color: #14171a;
+  margin: 0;
+}
+
+.tweet__header p {
+  font-size: 14px;
+  color: #657786;
+}
+
+.tweet__content {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #14171a;
+}
+
+/* Right Sidebar */
+.rightSidebar {
+  width: 350px;
+  background-color: white;
+  padding: 20px;
+  margin-left: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  position: sticky;
+  top: 0;
+}
+
+.rightSidebar h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #14171a;
+  margin-bottom: 20px;
+}
+
+.trend {
+  margin-bottom: 10px;
+}
+
+.trend p {
+  font-size: 16px;
+  color: #1da1f2;
+  cursor: pointer;
+}
+
+.trend p:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+    padding: 15px;
+  }
+
+  .feed {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .rightSidebar {
+    width: 100%;
+    margin-left: 0;
+    box-shadow: none;
+  }
+
+  .tweetBox button {
+    font-size: 14px;
+  }
+
+  .tweet__content {
+    font-size: 14px;
+  }
 }
