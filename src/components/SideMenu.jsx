@@ -1,7 +1,7 @@
 import './style/SideMenu.css'
 const SideMenu = ({ logOut }) => {
   return (
-    <div className="sidebar">
+    <div>
       <div className="sidebar__top">
         <h2>Y Logo</h2>
       </div>

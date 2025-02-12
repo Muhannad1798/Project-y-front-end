@@ -1,11 +1,11 @@
 import '../App.css'
-import { Link } from 'react-router-dom'
 import './post/Post'
 import Post from './post/Post'
 import Tweet from './tweet/Tweet'
+
 import SideMenu from '../components/SideMenu'
-const Dashboard = ({ logOut, user }) => {
-  console.log({ user })
+const Dashboard = ({ logOut, user, Posts, setPosts }) => {
+  //console.log({ user })
 
   if (!user) {
     return <p>Please sign in</p>
@@ -16,15 +16,15 @@ const Dashboard = ({ logOut, user }) => {
       <div className="app">
         <div className="sidebar">
           <div className="sidebar__top">
-          <SideMenu logOut={logOut} />
+            <SideMenu logOut={logOut} />
           </div>
-         </div>
+        </div>
         <div className="feed">
           <div className="feed__header">
             <h2>Home</h2>
           </div>
           <Tweet />
-          <Post />
+          <Post post={Posts} />
         </div>
 
         <div className="rightSidebar">
@@ -35,7 +35,6 @@ const Dashboard = ({ logOut, user }) => {
           </div>
         </div>
       </div>
-      );
     </>
   )
 }
