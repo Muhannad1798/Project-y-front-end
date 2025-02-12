@@ -1,11 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import NavBar from './components/SideMenu'
 import Home from './pages/Home'
 import Signin from './pages/auth/Signin'
 import Signup from './pages/auth/Signup'
 import Dashboard from './pages/Dashboard'
 import { useEffect, useState } from 'react'
-import { getProfile } from './services/userService'
+import { getProfile, getPosts } from './services/userService'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -24,9 +25,20 @@ function App() {
     localStorage.removeItem('authToken')
     setUser(null)
   }
+  const [Posts, setPosts] = useState(null)
+  const getPost = async () => {
+    try {
+      const postData = await getPosts()
+      setPosts(postData.posts)
+    } catch (error) {
+      setPosts(null)
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     getUserProfile()
+    getPost()
   }, [])
 
   return (
@@ -36,7 +48,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/dashboard"
-            element={<Dashboard user={user} logOut={logOut} />}
+            element={
+              <Dashboard
+                user={user}
+                logOut={logOut}
+                Posts={Posts}
+                setPosts={setPosts}
+              />
+            }
           />
           <Route
             path="/auth/signup"

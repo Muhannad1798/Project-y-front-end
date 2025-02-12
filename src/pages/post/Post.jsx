@@ -1,18 +1,27 @@
 import './style/Post.css'
-const Post = () => {
+const Post = ({ Posts }) => {
   return (
-    <>
-      <div className="tweets">
-        {/* Example tweet */}
-        <div className="tweet">
-          <div className="tweet__header">
-            <h3>User Name</h3>
-            <p>@username</p>
+    <div className="tweets">
+      {/*Posts.map((post) => (
+          <div key={post._id} className="tweet">
+            <div className="tweet__header">
+              <h3></h3>
+              <p>{post.userID}</p>
+            </div>
+            <p className="tweet__content">{post.post}</p>
           </div>
-          <p className="tweet__content">This is an example post!</p>
+        ))*/}
+      return(
+      {Posts.map((po) => (
+        <div key={po._id} className="tweet">
+          <div className="tweet__header">
+            <p>{po.userID}</p>
+            <p className="tweet__content">{po.post}</p>
+          </div>
         </div>
-      </div>
-    </>
+      ))}
+      )
+    </div>
   )
 }
 
