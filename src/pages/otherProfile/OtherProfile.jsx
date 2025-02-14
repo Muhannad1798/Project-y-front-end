@@ -5,21 +5,23 @@ import { useEffect, useState } from 'react';
 import {
   getUserFollowers,
   getUserFollowing,
-  getUserProfile
+  getUserProfile,
+  followUser,
+  unfollowUser
 } from '../../services/userService';
 
 const OtherProfile = ({ user, myPosts, otherUserId }) => {
-  const [following, setFollowing] = useState(0);
-  const [followers, setFollowers] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
+  const [followersCount, setFollowersCount] = useState(0);
   const [otherUser, setOtherUser] = useState(null);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const getOtherUserFw = async () => {
     try {
       const FollowingData = await getUserFollowing(otherUserId);
-      console.log(FollowingData);
-      setFollowing(FollowingData.following);
+      setFollowingCount(FollowingData.following);
     } catch (error) {
-      setFollowing(0);
+      setFollowingCount(0);
       console.log(error);
     }
   };
@@ -28,6 +30,7 @@ const OtherProfile = ({ user, myPosts, otherUserId }) => {
     try {
       const OtherUserData = await getUserProfile(otherUserId);
       setOtherUser(OtherUserData);
+      setIsFollowing(OtherUserData.followers.includes(user._id));
     } catch (error) {
       setOtherUser(null);
       console.log(error);
@@ -37,10 +40,24 @@ const OtherProfile = ({ user, myPosts, otherUserId }) => {
   const getOtherUserFr = async () => {
     try {
       const FollowersData = await getUserFollowers(otherUserId);
-      console.log(FollowersData);
-      setFollowers(FollowersData.followers);
+      setFollowersCount(FollowersData.followers);
     } catch (error) {
-      setFollowers(0);
+      setFollowersCount(0);
+      console.log(error);
+    }
+  };
+
+  const handleFollowToggle = async () => {
+    try {
+      if (isFollowing) {
+        await unfollowUser(otherUserId);
+        setFollowersCount((prev) => prev - 1);
+      } else {
+        await followUser(otherUserId);
+        setFollowersCount((prev) => prev + 1);
+      }
+      setIsFollowing(!isFollowing);
+    } catch (error) {
       console.log(error);
     }
   };
@@ -75,6 +92,9 @@ const OtherProfile = ({ user, myPosts, otherUserId }) => {
                 <h2>{otherUser.name}</h2>
                 <p>@{otherUser.username}</p>
                 <p>Bio: {otherUser.bio}</p>
+                <button onClick={handleFollowToggle} className="follow-button">
+                  {isFollowing ? 'Unfollow' : 'Follow'}
+                </button>
               </>
             ) : (
               <p>Loading...</p>
@@ -86,11 +106,11 @@ const OtherProfile = ({ user, myPosts, otherUserId }) => {
       <section className="profile-stats">
         <div className="profile-stats__item">
           <h3>Following</h3>
-          <p>{following}</p>
+          <p>{followingCount}</p>
         </div>
         <div className="profile-stats__item">
           <h3>Followers</h3>
-          <p>{followers}</p>
+          <p>{followersCount}</p>
         </div>
       </section>
 

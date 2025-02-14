@@ -48,3 +48,23 @@ export const getUserProfile = async (id) => {
 
   return response.data
 }
+
+export const followUser = async (userId) => {
+  try {
+    const response = await client.post(`/user/${userId}/follow`);
+    return response.data; // Adjust based on your API response
+  } catch (error) {
+    console.error('Error following user:', error);
+    throw error;
+  }
+};
+
+export const unfollowUser = async (userId) => {
+  try {
+    const response = await client.post(`/user/${userId}/unfollow`);
+    return response.data; // Adjust based on your API response
+  } catch (error) {
+    console.error('Error unfollowing user:', error);
+    throw error;
+  }
+};
