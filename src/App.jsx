@@ -8,8 +8,11 @@ import Dashboard from './pages/Dashboard'
 import { useEffect, useState } from 'react'
 import { getProfile, getPosts, getMyPosts } from './services/userService'
 import ProfilePage from './pages/profile/ProfilePage'
+import OtherProfile from './pages/otherProfile/OtherProfile'
 
 function App() {
+  const [otherUserId, setOtherUserId] = useState(null)
+  const [otherUser, setOtherUser] = useState(null)
   const [user, setUser] = useState(null)
   const getUserProfile = async () => {
     try {
@@ -64,6 +67,7 @@ function App() {
                 logOut={logOut}
                 Posts={Posts}
                 setPosts={setPosts}
+                setOtherUserId={setOtherUserId}
               />
             }
           />
@@ -78,6 +82,10 @@ function App() {
           <Route
             path="/:userid/profile"
             element={<ProfilePage user={user} myPosts={myPosts} />}
+          />
+          <Route
+            path="/:userid/OtherProfile"
+            element={<OtherProfile user={user} myPosts={myPosts} />}
           />
         </Routes>
       </main>
