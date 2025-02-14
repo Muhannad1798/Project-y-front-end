@@ -1,13 +1,13 @@
-import './style/Post.css'
-const Post = ({ Posts }) => {
+import './MyPosts.css'
+const MyPosts = ({ myPosts, user }) => {
   return (
     <>
       <div className="tweets">
-        {Posts?.map((post) => (
+        {myPosts?.map((post) => (
           <div key={post._id} className="tweet">
             <div className="tweet__header">
-              <h3>{post.userID.username}</h3>
-              <p>{post.userID.name}</p>
+              <h3>{user.username}</h3>
+              <p>{user.name}</p>
             </div>
             <p className="tweet__content">{post.post}</p>
           </div>
@@ -17,4 +17,4 @@ const Post = ({ Posts }) => {
   )
 }
 
-export default Post
+export default MyPosts

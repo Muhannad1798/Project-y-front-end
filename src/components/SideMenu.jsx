@@ -1,5 +1,7 @@
 import './style/SideMenu.css'
-const SideMenu = ({ logOut }) => {
+import { Link } from 'react-router-dom'
+
+const SideMenu = ({ user, logOut }) => {
   return (
     <div>
       <div className="sidebar__top">
@@ -7,7 +9,9 @@ const SideMenu = ({ logOut }) => {
       </div>
       <div className="sidebar__menu">
         <ul>
-          <li>Profile</li>
+          <li>
+            <Link to={`/${user._id}/profile`}>Profile</Link>
+          </li>
           <li>Home</li>
           <li>Explore</li>
           <li>Notifications</li>

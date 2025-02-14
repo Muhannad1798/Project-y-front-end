@@ -1,0 +1,224 @@
+/* Profile container */
+.profile-container {
+  width: 100%;
+  background-color: #f5f8fa; /* Light background like Twitter */
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Edit Profile & Home Links */
+.profile-header-links {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.profile-header-links .profile-footer__link {
+  text-decoration: none;
+  color: #1da1f2; /* Twitter blue */
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.profile-header-links .profile-footer__link:hover {
+  color: #1991d0;
+}
+
+/* Profile Header */
+.profile-header {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-header__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.profile-avatar {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header__details h2 {
+  font-size: 28px;
+  margin: 0;
+  color: #14171a;
+  font-weight: bold;
+}
+
+.profile-header__details p {
+  font-size: 16px;
+  color: #657786;
+  margin: 5px 0;
+}
+
+/* Following and Followers Stats */
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.profile-stats__item {
+  text-align: center;
+}
+
+.profile-stats__item h3 {
+  font-size: 30px;
+  margin: 0;
+  font-weight: bold;
+  color: #14171a;
+}
+
+.profile-stats__item p {
+  font-size: 16px;
+  color: #657786;
+}
+
+/* Profile Posts */
+.profile-posts {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.profile-posts h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #14171a;
+}
+
+/* Individual Post Styling */
+.post {
+  background-color: #f4f8fa;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post p {
+  font-size: 16px;
+  color: #14171a;
+}
+
+/* Footer */
+.profile-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.profile-footer__link {
+  text-decoration: none;
+  color: #1da1f2; /* Twitter blue */
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.profile-footer__link:hover {
+  color: #1991d0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 20px;
+  }
+
+  .profile-header {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-header__details h2 {
+    font-size: 22px;
+  }
+
+  .profile-stats {
+    flex-direction: column;
+  }
+
+  .profile-posts {
+    padding: 15px;
+  }
+
+  .profile-posts h3 {
+    font-size: 20px;
+  }
+
+  .post {
+    padding: 10px;
+  }
+
+  .post p {
+    font-size: 14px;
+  }
+
+  .profile-footer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-footer__link {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .profile-header__details h2 {
+    font-size: 20px;
+  }
+
+  .profile-posts h3 {
+    font-size: 18px;
+  }
+
+  .post {
+    padding: 8px;
+  }
+
+  .profile-footer__link {
+    font-size: 14px;
+  }
+}
+
+/* Remove underline from all links */
+a {
+  text-decoration: none;
+  color: #14171a;
+}
+
+/* Optionally, you can add hover effect if you want */
+a:hover {
+  color: #1da1f2; /* Twitter blue */
+}
