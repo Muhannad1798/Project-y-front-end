@@ -1,10 +1,41 @@
 import './style/Tweet.css'
-const Tweet = () => {
+import { useState } from 'react'
+import { tweet } from '../../services/authService'
+const Tweet = ({ setPosts, Posts, user }) => {
+  let initialFormData = {
+    post: '',
+    userID: user
+  }
+  const [formData, setFormData] = useState(initialFormData)
+
+  const [message, setMessage] = useState('')
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      await tweet(formData)
+      setPosts([...Posts, e.target.data])
+      setFormData(initialFormData)
+    } catch (error) {
+      setMessage(error.response?.data?.error)
+      console.log(error)
+    }
+  }
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value })
+  }
   return (
     <>
       <div className="tweetBox">
-        <textarea placeholder="What's happening?" rows="4" />
-        <button>Post</button>
+        <form onSubmit={handleSubmit}>
+          <textarea
+            placeholder="What's happening?"
+            rows="4"
+            onChange={handleChange}
+            value={formData.post}
+            id="post"
+          />
+          <button type="submit">Post</button>
+        </form>
       </div>
     </>
   )

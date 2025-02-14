@@ -5,8 +5,6 @@ import Tweet from './tweet/Tweet'
 
 import SideMenu from '../components/SideMenu'
 const Dashboard = ({ logOut, user, Posts, setPosts }) => {
-  //console.log({ user })
-
   if (!user) {
     return <p>Please sign in</p>
   }
@@ -16,15 +14,15 @@ const Dashboard = ({ logOut, user, Posts, setPosts }) => {
       <div className="app">
         <div className="sidebar">
           <div className="sidebar__top">
-            <SideMenu logOut={logOut} />
+            <SideMenu user={user} logOut={logOut} />
           </div>
         </div>
         <div className="feed">
           <div className="feed__header">
             <h2>Home</h2>
           </div>
-          <Tweet />
-          <Post post={Posts} />
+          <Tweet setPosts={setPosts} Posts={Posts} user={user} />
+          <Post Posts={Posts} />
         </div>
 
         <div className="rightSidebar">

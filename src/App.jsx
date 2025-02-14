@@ -6,7 +6,8 @@ import Signin from './pages/auth/Signin'
 import Signup from './pages/auth/Signup'
 import Dashboard from './pages/Dashboard'
 import { useEffect, useState } from 'react'
-import { getProfile, getPosts } from './services/userService'
+import { getProfile, getPosts, getMyPosts } from './services/userService'
+import ProfilePage from './pages/profile/ProfilePage'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -15,7 +16,6 @@ function App() {
       const data = await getProfile()
 
       setUser(data)
-      // console.log('user profile: ' + data)
     } catch (error) {
       setUser(null)
       console.log(error)
@@ -35,10 +35,20 @@ function App() {
       console.log(error)
     }
   }
-
+  const [myPosts, setMyPosts] = useState(null)
+  const getMyPost = async () => {
+    try {
+      const postData = await getMyPosts()
+      setMyPosts(postData.posts)
+    } catch (error) {
+      setPosts(null)
+      console.log(error)
+    }
+  }
   useEffect(() => {
     getUserProfile()
     getPost()
+    getMyPost()
   }, [])
 
   return (
@@ -64,6 +74,10 @@ function App() {
           <Route
             path="/auth/signin"
             element={<Signin getUserProfile={getUserProfile} />}
+          />
+          <Route
+            path="/:userid/profile"
+            element={<ProfilePage user={user} myPosts={myPosts} />}
           />
         </Routes>
       </main>
