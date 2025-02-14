@@ -1,55 +1,56 @@
-import { Link } from 'react-router-dom'
-import './OtherProfile.css'
-import MyPosts from '../profile/myPosts/MyPosts'
-import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
+import './OtherProfile.css';
+import MyPosts from '../profile/myPosts/MyPosts';
+import { useEffect, useState } from 'react';
 import {
   getUserFollowers,
   getUserFollowing,
   getUserProfile
-} from '../../services/userService'
+} from '../../services/userService';
 
 const OtherProfile = ({ user, myPosts, otherUserId }) => {
-  const [following, setFollowing] = useState(0)
-  const [followers, setFollowers] = useState(0)
-  const [otherUser, setOtherUser] = useState(null)
+  const [following, setFollowing] = useState(0);
+  const [followers, setFollowers] = useState(0);
+  const [otherUser, setOtherUser] = useState(null);
 
-  const getUserFw = async () => {
+  const getOtherUserFw = async () => {
     try {
-      const FollowingData = await getUserFollowing(user._id)
-      console.log(FollowingData)
-
-      setFollowing(FollowingData.following)
+      const FollowingData = await getUserFollowing(otherUserId);
+      console.log(FollowingData);
+      setFollowing(FollowingData.following);
     } catch (error) {
-      setFollowing(0)
-      console.log(error)
+      setFollowing(0);
+      console.log(error);
     }
-  }
+  };
+
   const getOtherUserProfile = async () => {
     try {
-      const OtherUserData = await getUserProfile(otherUserId)
-      setOtherUser(OtherUserData)
+      const OtherUserData = await getUserProfile(otherUserId);
+      setOtherUser(OtherUserData);
     } catch (error) {
-      setOtherUser(null)
-      console.log(error)
+      setOtherUser(null);
+      console.log(error);
     }
-  }
-  const getUserFr = async () => {
-    try {
-      const FollowersData = await getUserFollowers(user._id)
-      console.log(FollowersData)
+  };
 
-      setFollowers(FollowersData.followers)
+  const getOtherUserFr = async () => {
+    try {
+      const FollowersData = await getUserFollowers(otherUserId);
+      console.log(FollowersData);
+      setFollowers(FollowersData.followers);
     } catch (error) {
-      setFollowers(0)
-      console.log(error)
+      setFollowers(0);
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    getUserFr()
-    getUserFw()
-    getOtherUserProfile()
-  }, [])
+    getOtherUserProfile();
+    getOtherUserFr();
+    getOtherUserFw();
+  }, []);
+
   return (
     <div className="profile-container">
       <div className="profile-header-links">
@@ -69,9 +70,15 @@ const OtherProfile = ({ user, myPosts, otherUserId }) => {
             className="profile-avatar"
           />
           <div className="profile-header__details">
-            <h2>name: {otherUser.name}</h2>
-            <p>@</p>
-            <p>Bio: </p>
+            {otherUser ? (
+              <>
+                <h2>{otherUser.name}</h2>
+                <p>@{otherUser.username}</p>
+                <p>Bio: {otherUser.bio}</p>
+              </>
+            ) : (
+              <p>Loading...</p>
+            )}
           </div>
         </div>
       </header>
@@ -92,7 +99,7 @@ const OtherProfile = ({ user, myPosts, otherUserId }) => {
         <MyPosts user={user} myPosts={myPosts} />
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default OtherProfile
+export default OtherProfile;

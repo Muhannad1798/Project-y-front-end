@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom'
-import './ProfilePage.css'
-import MyPosts from './myPosts/MyPosts'
-import { useEffect, useState } from 'react'
-import { getUserFollowers, getUserFollowing } from '../../services/userService'
+import { Link } from "react-router-dom"
+import "./ProfilePage.css"
+import MyPosts from "./myPosts/MyPosts"
+import { useEffect, useState } from "react"
+import { getUserFollowers, getUserFollowing } from "../../services/userService"
 
 const ProfilePage = ({ user, myPosts }) => {
   const [following, setFollowing] = useState(0)
@@ -12,7 +12,6 @@ const ProfilePage = ({ user, myPosts }) => {
     try {
       const FollowingData = await getUserFollowing(user._id)
       console.log(FollowingData)
-
       setFollowing(FollowingData.following)
     } catch (error) {
       setFollowing(0)
@@ -24,7 +23,6 @@ const ProfilePage = ({ user, myPosts }) => {
     try {
       const FollowersData = await getUserFollowers(user._id)
       console.log(FollowersData)
-
       setFollowers(FollowersData.followers)
     } catch (error) {
       setFollowers(0)
@@ -36,6 +34,7 @@ const ProfilePage = ({ user, myPosts }) => {
     getUserFr()
     getUserFw()
   }, [])
+
   return (
     <div className="profile-container">
       <div className="profile-header-links">
@@ -49,15 +48,25 @@ const ProfilePage = ({ user, myPosts }) => {
 
       <header className="profile-header">
         <div className="profile-header__info">
-          <img
-            src="https://via.placeholder.com/150"
-            alt="User Avatar"
-            className="profile-avatar"
-          />
+          <Link to={`/user/${user._id}`} className="profile-header__link">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="User Avatar"
+              className="profile-avatar"
+            />
+          </Link>
           <div className="profile-header__details">
-            <h2>{user.name}</h2>
-            <p>@{user.username}</p>
-            <p>Bio: {user.bio}</p>
+            <Link to={`/user/${user._id}`} className="profile-header__link">
+              <h2>
+                {user.name}
+              </h2>
+            </Link>
+            <p>
+              @{user.username}
+            </p>
+            <p>
+              Bio: {user.bio}
+            </p>
           </div>
         </div>
       </header>
@@ -65,11 +74,15 @@ const ProfilePage = ({ user, myPosts }) => {
       <section className="profile-stats">
         <div className="profile-stats__item">
           <h3>Following</h3>
-          <p>{following}</p>
+          <p>
+            {following}
+          </p>
         </div>
         <div className="profile-stats__item">
           <h3>Followers</h3>
-          <p>{followers}</p>
+          <p>
+            {followers}
+          </p>
         </div>
       </section>
 
