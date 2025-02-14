@@ -5,25 +5,30 @@ import { useEffect, useState } from 'react'
 import {
   getUserFollowers,
   getUserFollowing,
-  getUserProfile
+  getUserProfile,
+  followUser, // Assuming you have a follow API
+  unfollowUser // Assuming you have an unfollow API
 } from '../../services/userService'
 
 const OtherProfile = ({ user, myPosts, otherUserId }) => {
   const [following, setFollowing] = useState(0)
   const [followers, setFollowers] = useState(0)
   const [otherUser, setOtherUser] = useState(null)
+  const [isFollowing, setIsFollowing] = useState(false)
 
-  const getUserFw = async () => {
+  // Fetch following list
+  const getOtherUserFw = async () => {
     try {
-      const FollowingData = await getUserFollowing(user._id)
-      console.log(FollowingData)
-
+      const FollowingData = await getUserFollowing(otherUserId)
       setFollowing(FollowingData.following)
+      setIsFollowing(FollowingData.following.some((f) => f._id === user._id)) // Check if current user is following
     } catch (error) {
       setFollowing(0)
       console.log(error)
     }
   }
+
+  // Fetch user profile
   const getOtherUserProfile = async () => {
     try {
       const OtherUserData = await getUserProfile(otherUserId)
@@ -33,11 +38,11 @@ const OtherProfile = ({ user, myPosts, otherUserId }) => {
       console.log(error)
     }
   }
-  const getUserFr = async () => {
-    try {
-      const FollowersData = await getUserFollowers(user._id)
-      console.log(FollowersData)
 
+  // Fetch followers
+  const getOtherUserFr = async () => {
+    try {
+      const FollowersData = await getUserFollowers(otherUserId)
       setFollowers(FollowersData.followers)
     } catch (error) {
       setFollowers(0)
@@ -45,11 +50,34 @@ const OtherProfile = ({ user, myPosts, otherUserId }) => {
     }
   }
 
+  // Follow a user
+  const handleFollow = async () => {
+    try {
+      await followUser(otherUserId)
+      setIsFollowing(true)
+      setFollowers((prev) => prev + 1) // Increment followers count
+    } catch (error) {
+      console.log('Error following user:', error)
+    }
+  }
+
+  // Unfollow a user
+  const handleUnfollow = async () => {
+    try {
+      await unfollowUser(otherUserId)
+      setIsFollowing(false)
+      setFollowers((prev) => prev - 1) // Decrement followers count
+    } catch (error) {
+      console.log('Error unfollowing user:', error)
+    }
+  }
+
   useEffect(() => {
-    getUserFr()
-    getUserFw()
     getOtherUserProfile()
+    getOtherUserFr()
+    getOtherUserFw()
   }, [])
+
   return (
     <div className="profile-container">
       <div className="profile-header-links">
@@ -64,14 +92,22 @@ const OtherProfile = ({ user, myPosts, otherUserId }) => {
       <header className="profile-header">
         <div className="profile-header__info">
           <img
-            src="https://via.placeholder.com/150"
+            src={
+              otherUser ? otherUser.avatar : 'https://via.placeholder.com/150'
+            }
             alt="User Avatar"
             className="profile-avatar"
           />
           <div className="profile-header__details">
-            <h2>name: {otherUser.name}</h2>
-            <p>@</p>
-            <p>Bio: </p>
+            {otherUser ? (
+              <>
+                <h2>{otherUser.name}</h2>
+                <p>@{otherUser.username}</p>
+                <p>Bio: {otherUser.bio}</p>
+              </>
+            ) : (
+              <p>Loading...</p>
+            )}
           </div>
         </div>
       </header>
@@ -85,6 +121,18 @@ const OtherProfile = ({ user, myPosts, otherUserId }) => {
           <h3>Followers</h3>
           <p>{followers}</p>
         </div>
+      </section>
+
+      <section className="profile-action">
+        {isFollowing ? (
+          <button className="unfollow-btn" onClick={handleUnfollow}>
+            Unfollow
+          </button>
+        ) : (
+          <button className="follow-btn" onClick={handleFollow}>
+            Follow
+          </button>
+        )}
       </section>
 
       <section className="profile-posts">
