@@ -6,13 +6,17 @@ import Signin from './pages/auth/Signin'
 import Signup from './pages/auth/Signup'
 import Dashboard from './pages/Dashboard'
 import { useEffect, useState } from 'react'
-import { getProfile, getPosts, getMyPosts } from './services/userService'
+import {
+  getProfile,
+  getPosts,
+  getMyPosts,
+  getUserProfile
+} from './services/userService'
 import ProfilePage from './pages/profile/ProfilePage'
 import OtherProfile from './pages/otherProfile/OtherProfile'
 
 function App() {
   const [otherUserId, setOtherUserId] = useState(null)
-  const [otherUser, setOtherUser] = useState(null)
   const [user, setUser] = useState(null)
   const getUserProfile = async () => {
     try {
@@ -48,6 +52,18 @@ function App() {
       console.log(error)
     }
   }
+
+  /*const getOtherUserProfile = async () => {
+    try {
+      const OtherUserData = await getUserProfile(otherUserId)
+      console.log(OtherUserData.data)
+
+      setOtherUser(OtherUserData)
+    } catch (error) {
+      setOtherUser(null)
+      console.log(error)
+    }
+  }*/
   useEffect(() => {
     getUserProfile()
     getPost()
@@ -85,7 +101,13 @@ function App() {
           />
           <Route
             path="/:userid/OtherProfile"
-            element={<OtherProfile user={user} myPosts={myPosts} />}
+            element={
+              <OtherProfile
+                user={user}
+                myPosts={myPosts}
+                otherUserId={otherUserId}
+              />
+            }
           />
         </Routes>
       </main>

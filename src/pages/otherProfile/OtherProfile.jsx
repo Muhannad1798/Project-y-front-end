@@ -2,11 +2,16 @@ import { Link } from 'react-router-dom'
 import './OtherProfile.css'
 import MyPosts from '../profile/myPosts/MyPosts'
 import { useEffect, useState } from 'react'
-import { getUserFollowers, getUserFollowing } from '../../services/userService'
+import {
+  getUserFollowers,
+  getUserFollowing,
+  getUserProfile
+} from '../../services/userService'
 
-const OtherProfile = ({ user, myPosts }) => {
+const OtherProfile = ({ user, myPosts, otherUserId }) => {
   const [following, setFollowing] = useState(0)
   const [followers, setFollowers] = useState(0)
+  const [otherUser, setOtherUser] = useState(null)
 
   const getUserFw = async () => {
     try {
@@ -19,7 +24,15 @@ const OtherProfile = ({ user, myPosts }) => {
       console.log(error)
     }
   }
-
+  const getOtherUserProfile = async () => {
+    try {
+      const OtherUserData = await getUserProfile(otherUserId)
+      setOtherUser(OtherUserData)
+    } catch (error) {
+      setOtherUser(null)
+      console.log(error)
+    }
+  }
   const getUserFr = async () => {
     try {
       const FollowersData = await getUserFollowers(user._id)
@@ -35,6 +48,7 @@ const OtherProfile = ({ user, myPosts }) => {
   useEffect(() => {
     getUserFr()
     getUserFw()
+    getOtherUserProfile()
   }, [])
   return (
     <div className="profile-container">
@@ -55,7 +69,7 @@ const OtherProfile = ({ user, myPosts }) => {
             className="profile-avatar"
           />
           <div className="profile-header__details">
-            <h2></h2>
+            <h2>name: {otherUser.name}</h2>
             <p>@</p>
             <p>Bio: </p>
           </div>
