@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Post = ({ Posts, setOtherUserId }) => {
   const onClick = (e) => {
-    console.log(e.target)
-
-    //setOtherUserId()
+    setOtherUserId(e.target.id)
   }
 
   return (
@@ -15,7 +13,7 @@ const Post = ({ Posts, setOtherUserId }) => {
           <div key={post._id} className="tweet">
             <div className="tweet__header">
               <Link to={`/${post.userID._id}/OtherProfile`} onClick={onClick}>
-                <h3>{post.userID.username}</h3>
+                <h3 id={post.userID._id}>{post.userID.username}</h3>
               </Link>
               <p>{post.userID.name}</p>
             </div>
