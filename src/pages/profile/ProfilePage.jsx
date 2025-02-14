@@ -1,14 +1,40 @@
 import { Link } from 'react-router-dom'
-import './ProfilePage.css' // Import the profile CSS
+import './ProfilePage.css'
 import MyPosts from './myPosts/MyPosts'
 import { useEffect, useState } from 'react'
+import { getUserFollowers, getUserFollowing } from '../../services/userService'
+
 const ProfilePage = ({ user, myPosts }) => {
-  //const [follwoing, setfollowing] = useState(null)
-  // const [follwoers, setfollowing] = useState(null)
+  const [following, setFollowing] = useState(0)
+  const [followers, setFollowers] = useState(0)
+
+  const getUserFw = async () => {
+    try {
+      const FollowingData = await getUserFollowing()
+      setFollowing(FollowingData.following)
+    } catch (error) {
+      setFollowing(0)
+      console.log(error)
+    }
+  }
+
+  const getUserFr = async () => {
+    try {
+      const FollowersData = await getUserFollowers()
+      setFollowers(FollowersData.followers)
+    } catch (error) {
+      setFollowers(0)
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getUserFr()
+    getUserFw()
+  }, [])
 
   return (
     <div className="profile-container">
-      {/* Links Section at the top */}
       <div className="profile-header-links">
         <Link to="/settings" className="profile-footer__link">
           Edit Profile
@@ -17,6 +43,7 @@ const ProfilePage = ({ user, myPosts }) => {
           Back to Home
         </Link>
       </div>
+
       <header className="profile-header">
         <div className="profile-header__info">
           <img
@@ -31,17 +58,18 @@ const ProfilePage = ({ user, myPosts }) => {
           </div>
         </div>
       </header>
-      {/* Following and Followers Section */}
+
       <section className="profile-stats">
         <div className="profile-stats__item">
-          <h3>100</h3>
-          <p>Following</p>
+          <h3>Following</h3>
+          <p>{following}</p>
         </div>
         <div className="profile-stats__item">
-          <h3>250</h3>
-          <p>Followers</p>
+          <h3>Followers</h3>
+          <p>{followers}</p>
         </div>
       </section>
+
       <section className="profile-posts">
         <h3>Posts</h3>
         <MyPosts user={user} myPosts={myPosts} />
