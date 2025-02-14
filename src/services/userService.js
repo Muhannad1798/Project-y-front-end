@@ -19,15 +19,25 @@ export const getMyPosts = async () => {
   const response = await client.get('/post/myPost')
   return response.data
 }
-
-export const getUserFollowing = async () => {
-  const response = await client.get('/user/:userId/following')
-  return response.data
+export const getUserFollowing = async (userId) => {
+  try {
+    const response = await client.get(`/user/${userId}/following`)
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
 }
-
-export const getUserFollowers = async () => {
-  const response = await client.get('/user/:userId/followers')
-  return response.data
+export const getUserFollowers = async (userId) => {
+  try {
+    const response = await client.get(`/user/${userId}/followers`)
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    console.error('Error fetching user followers:', error)
+    throw error
+  }
 }
 
 export const getUserProfile = async () => {
