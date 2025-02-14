@@ -1,0 +1,181 @@
+/* General Container */
+.profile-container {
+  padding: 30px;
+  max-width: 1100px;
+  margin: auto;
+  background-color: #f5f8fa; /* Light background for the container */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+/* Profile Header */
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #e1e8ed; /* Underline for separation */
+  padding-bottom: 15px;
+}
+
+.profile-header__info {
+  display: flex;
+  align-items: center;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 20px;
+  transition: transform 0.3s ease; /* Avatar hover effect */
+  border: 3px solid #1da1f2; /* Avatar border to make it stand out */
+}
+
+.profile-avatar:hover {
+  transform: scale(1.1); /* Slight zoom effect */
+}
+
+.profile-header__details h2 {
+  font-size: 1.8em;
+  margin: 0;
+  color: #14171a;
+}
+
+.profile-header__details p {
+  color: #657786; /* Lighter gray for secondary text */
+  font-size: 1em;
+}
+
+.profile-header-links {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.profile-footer__link {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #1da1f2;
+  font-weight: 600;
+  font-size: 1.1em;
+  transition: color 0.3s ease;
+}
+
+.profile-footer__link:hover {
+  color: #1991d0;
+}
+
+/* Profile Stats Section */
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 25px;
+}
+
+.profile-stats__item {
+  text-align: center;
+  flex: 1;
+}
+
+.profile-stats__item h3 {
+  font-size: 1.3em;
+  color: #14171a;
+  margin-bottom: 8px;
+}
+
+.profile-stats__item p {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #1da1f2; /* Highlight follower/following numbers */
+}
+
+/* Action Button (Follow/Unfollow) */
+.profile-action {
+  text-align: center;
+  margin-top: 20px;
+  position: relative; /* Necessary for button positioning */
+}
+
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 600;
+}
+
+.follow-btn {
+  background-color: #1da1f2;
+  color: white;
+}
+
+.follow-btn:hover {
+  background-color: #1991d0;
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.unfollow-btn {
+  background-color: #e1e8ed;
+  color: #14171a;
+}
+
+.unfollow-btn:hover {
+  background-color: #ccd6dd;
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Profile Posts Section */
+.profile-posts {
+  margin-top: 30px;
+}
+
+.profile-posts h3 {
+  font-size: 1.6em;
+  margin-bottom: 15px;
+  color: #14171a;
+  font-weight: 600;
+}
+
+/* Remove underline from all links */
+a {
+  text-decoration: none;
+  color: #14171a;
+}
+
+a:hover {
+  color: #1da1f2; /* Twitter blue */
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-header__info {
+    margin-bottom: 15px;
+  }
+
+  .profile-avatar {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+
+  .profile-stats {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-stats__item {
+    margin-bottom: 15px;
+  }
+
+  button {
+    width: 100%;
+    padding: 14px 0;
+  }
+}
