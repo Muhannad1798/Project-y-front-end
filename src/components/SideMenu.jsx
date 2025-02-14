@@ -1,6 +1,6 @@
+
 import './style/SideMenu.css'
 import { Link } from 'react-router-dom'
-
 const SideMenu = ({ user, logOut }) => {
   return (
     <div>
