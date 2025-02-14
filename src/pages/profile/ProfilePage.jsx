@@ -10,7 +10,9 @@ const ProfilePage = ({ user, myPosts }) => {
 
   const getUserFw = async () => {
     try {
-      const FollowingData = await getUserFollowing()
+      const FollowingData = await getUserFollowing(user._id)
+      console.log(FollowingData)
+
       setFollowing(FollowingData.following)
     } catch (error) {
       setFollowing(0)
@@ -20,7 +22,9 @@ const ProfilePage = ({ user, myPosts }) => {
 
   const getUserFr = async () => {
     try {
-      const FollowersData = await getUserFollowers()
+      const FollowersData = await getUserFollowers(user._id)
+      console.log(FollowersData)
+
       setFollowers(FollowersData.followers)
     } catch (error) {
       setFollowers(0)
@@ -32,7 +36,6 @@ const ProfilePage = ({ user, myPosts }) => {
     getUserFr()
     getUserFw()
   }, [])
-
   return (
     <div className="profile-container">
       <div className="profile-header-links">
