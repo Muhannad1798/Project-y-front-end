@@ -20,12 +20,12 @@ export const getMyPosts = async () => {
   return response.data
 }
 
-export const userFollowing = async () => {
+export const getUserFollowing = async () => {
   const response = await client.get('/user/:userId/following')
   return response.data
 }
 
-export const userFollowers = async () => {
+export const getUserFollowers = async () => {
   const response = await client.get('/user/:userId/followers')
   return response.data
 }
