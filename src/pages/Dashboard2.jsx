@@ -3,6 +3,7 @@ import './post/Post'
 import Tweet from './tweet/Tweet'
 import FollowingPosts from './followingPost/FollowingPosts'
 import SideMenu from '../components/SideMenu'
+import Search from './search/Search'
 const Dashboard = ({
   logOut,
   user,
@@ -35,7 +36,7 @@ const Dashboard = ({
         </div>
 
         <div className="rightSidebar">
-          <h3>People you might know</h3>
+          <Search />
           <div className="trend">
             <p>Random profile</p>
           </div>

@@ -24,7 +24,7 @@ const Post = ({ Posts, setOtherUserId, user }) => {
   }
 
   useEffect(() => {
-    Posts.forEach((post) => {
+    Posts?.forEach((post) => {
       checkIfLiked(post._id)
     })
   }, [Posts, user])

@@ -4,6 +4,7 @@ import Post from './post/Post'
 import Tweet from './tweet/Tweet'
 
 import SideMenu from '../components/SideMenu'
+import Search from './search/Search'
 const Dashboard = ({
   logOut,
   user,
@@ -38,6 +39,7 @@ const Dashboard = ({
         </div>
 
         <div className="rightSidebar">
+          <Search />
           <h3>People you might know</h3>
           <div className="trend">
             <p>Random profile</p>

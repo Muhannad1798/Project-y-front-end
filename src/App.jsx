@@ -16,6 +16,7 @@ import {
 } from './services/userService'
 import ProfilePage from './pages/profile/ProfilePage'
 import OtherProfile from './pages/otherProfile/OtherProfile'
+import ConversationsPage from './pages/conversationsPage/ConversationsPage'
 
 function App() {
   const [otherUserId, setOtherUserId] = useState(null)
@@ -130,6 +131,8 @@ function App() {
               />
             }
           />
+
+          <Route path="/dm" element={<ConversationsPage />} />
         </Routes>
       </main>
     </>
