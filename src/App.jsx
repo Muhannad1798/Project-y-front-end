@@ -39,7 +39,10 @@ function App() {
   const getPost = async () => {
     try {
       const postData = await getPosts()
-      setPosts(postData.posts)
+      const sortedPosts = postData.posts.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      )
+      setPosts(sortedPosts)
     } catch (error) {
       setPosts(null)
       console.log(error)
@@ -50,7 +53,10 @@ function App() {
   const getMyPost = async () => {
     try {
       const postData = await getMyPosts()
-      setMyPosts(postData.posts)
+      const sortedPosts = postData.posts.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      )
+      setMyPosts(sortedPosts)
     } catch (error) {
       setPosts(null)
       console.log(error)
@@ -61,9 +67,10 @@ function App() {
   const getFollowingPost = async () => {
     try {
       const postData = await getFollowingPosts()
-      console.log(postData)
-
-      setFollowingPosts(postData.posts)
+      const sortedPosts = postData.posts.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      )
+      setFollowingPosts(sortedPosts)
     } catch (error) {
       setPosts(null)
       console.log(error)
@@ -131,7 +138,6 @@ function App() {
               />
             }
           />
-
           <Route path="/dm" element={<ConversationsPage />} />
         </Routes>
       </main>
