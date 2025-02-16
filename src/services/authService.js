@@ -10,7 +10,6 @@ export const signUp = async (data) => {
 export const signIn = async (data) => {
   const response = await client.post('/auth/signin', data)
   const token = response.data.token
-  console.log(response.data)
 
   localStorage.setItem('authToken', token)
   return response.data
@@ -18,5 +17,19 @@ export const signIn = async (data) => {
 
 export const tweet = async (data) => {
   const response = await client.post('/post/tweet', data)
+  console.log(data)
+
+  return response.data
+}
+
+export const like = async (id) => {
+  const response = await client.post(`/post/${id}/like`)
+
+  return response.data
+}
+
+export const dislike = async (id) => {
+  const response = await client.post(`/post/${id}/dislike`)
+
   return response.data
 }

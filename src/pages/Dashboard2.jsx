@@ -1,8 +1,7 @@
 import '../App.css'
 import './post/Post'
-import Post from './post/Post'
 import Tweet from './tweet/Tweet'
-
+import FollowingPosts from './followingPost/FollowingPosts'
 import SideMenu from '../components/SideMenu'
 const Dashboard = ({
   logOut,
@@ -10,7 +9,7 @@ const Dashboard = ({
   Posts,
   setPosts,
   setOtherUserId,
-  getPost
+  followingPosts
 }) => {
   if (!user) {
     return <p>Please sign in</p>
@@ -28,13 +27,11 @@ const Dashboard = ({
           <div className="feed__header">
             <h2>Home</h2>
           </div>
-          <Tweet
-            setPosts={setPosts}
-            Posts={Posts}
-            user={user}
-            getPost={getPost}
+          <Tweet setPosts={setPosts} Posts={Posts} user={user} />
+          <FollowingPosts
+            followingPosts={followingPosts}
+            setOtherUserId={setOtherUserId}
           />
-          <Post Posts={Posts} user={user} setOtherUserId={setOtherUserId} />
         </div>
 
         <div className="rightSidebar">

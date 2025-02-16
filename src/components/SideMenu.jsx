@@ -1,4 +1,3 @@
-
 import './style/SideMenu.css'
 import { Link } from 'react-router-dom'
 const SideMenu = ({ user, logOut }) => {
@@ -12,8 +11,12 @@ const SideMenu = ({ user, logOut }) => {
           <li>
             <Link to={`/${user._id}/profile`}>Profile</Link>
           </li>
-          <li>Home</li>
-          <li>Explore</li>
+          <li>
+            <Link to="/dashboard/home">Home</Link>
+          </li>
+          <li>
+            <Link to="/dashboard/explore">Explore</Link>
+          </li>
           <li>Notifications</li>
           <li>Messages</li>
           <li>Bookmarks</li>

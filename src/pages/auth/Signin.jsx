@@ -22,7 +22,7 @@ const Signin = ({ getUserProfile }) => {
       await signIn(formData)
       await getUserProfile()
       setFormData(initialFormData)
-      navigate('/dashboard')
+      navigate('/dashboard/home')
     } catch (error) {
       setMessage(error.response?.data?.error)
     }

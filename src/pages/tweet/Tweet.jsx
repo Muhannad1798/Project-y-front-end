@@ -1,7 +1,7 @@
 import './style/Tweet.css'
 import { useState } from 'react'
 import { tweet } from '../../services/authService'
-const Tweet = ({ setPosts, Posts, user }) => {
+const Tweet = ({ setPosts, Posts, user, getPost }) => {
   let initialFormData = {
     post: '',
     userID: user
@@ -10,11 +10,11 @@ const Tweet = ({ setPosts, Posts, user }) => {
 
   const [message, setMessage] = useState('')
   const handleSubmit = async (e) => {
-    e.preventDefault()
     try {
       await tweet(formData)
       setPosts([...Posts, e.target.data])
       setFormData(initialFormData)
+      getPost()
     } catch (error) {
       setMessage(error.response?.data?.error)
       console.log(error)
