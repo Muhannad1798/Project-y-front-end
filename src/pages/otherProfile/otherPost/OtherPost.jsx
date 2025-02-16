@@ -8,13 +8,11 @@ const OtherPost = ({ otherPosts, otherUser, user }) => {
   const [likedPosts, setLikedPosts] = useState({})
 
   useEffect(() => {
-    // Fetch the like status for each post when the component mounts or updates
-    otherPosts.forEach((post) => {
+    otherPosts?.forEach((post) => {
       fetchLikeStatus(post._id)
     })
-  }, [otherPosts, user]) // Re-fetch on posts or user change
+  }, [otherPosts, user])
 
-  // Function to fetch if the post is liked by the user
   const fetchLikeStatus = async (postId) => {
     try {
       const usersLike = await getLike(postId)
@@ -24,26 +22,23 @@ const OtherPost = ({ otherPosts, otherUser, user }) => {
         [postId]: isLiked
       }))
     } catch (error) {
-      console.error('Error fetching like status:', error)
+      console.error(error)
     }
   }
 
-  // Toggle the like state for the given post
   const toggleLike = async (postId) => {
     try {
       if (likedPosts[postId]) {
-        // If the post is already liked, unlike it
         await dislike(postId)
         setLikedPosts((prevState) => ({
           ...prevState,
-          [postId]: false // Mark it as unliked
+          [postId]: false
         }))
       } else {
-        // If the post is not liked, like it
         await like(postId)
         setLikedPosts((prevState) => ({
           ...prevState,
-          [postId]: true // Mark it as liked
+          [postId]: true
         }))
       }
     } catch (error) {

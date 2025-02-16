@@ -37,13 +37,11 @@ const FollowingPosts = ({
     postIds?.forEach((postId) => checkIfLiked(postId)) // Check for each post's like status
   }, [followingPosts, user])
 
-  // Toggle Like/Dislike for a specific post
   const toggleLike = async (postId) => {
     try {
       const currentLikeState = likeStates[postId]
 
       if (currentLikeState.liked) {
-        // Unlike post
         await dislike(postId)
         setLikeStates((prevState) => ({
           ...prevState,
@@ -53,7 +51,6 @@ const FollowingPosts = ({
           }
         }))
       } else {
-        // Like post
         await like(postId)
         setLikeStates((prevState) => ({
           ...prevState,
@@ -68,7 +65,6 @@ const FollowingPosts = ({
     }
   }
 
-  // Set the other user ID when clicking on user profile link
   const onClick = (e) => {
     setOtherUserId(e.target.id)
   }

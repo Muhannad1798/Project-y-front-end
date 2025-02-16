@@ -1,0 +1,110 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f6f7f9; /* Light background for a clean look */
+}
+
+.conversations-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.conversations-header {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #333;
+  font-weight: 600;
+}
+
+.conversations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Conversation Item */
+.conversation-item {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.conversation-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  opacity: 1;
+}
+
+.conversation-link {
+  display: flex;
+  width: 100%;
+  text-decoration: none;
+}
+
+.conversation-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.avatar {
+  margin-right: 15px;
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #2e3b4e;
+  font-weight: 600;
+}
+
+p {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #7d8a9c;
+}
+
+.message-time {
+  font-size: 0.9rem;
+  color: #a4b6d4;
+  margin-left: auto;
+  opacity: 0.7;
+}
+
+/* Add smooth scrolling for long lists */
+.conversations-list {
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.conversations-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.conversations-list::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 10px;
+}
+
+.conversations-list::-webkit-scrollbar-thumb:hover {
+  background-color: #6c63ff;
+}

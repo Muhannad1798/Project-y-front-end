@@ -18,7 +18,10 @@ const SideMenu = ({ user, logOut }) => {
             <Link to="/dashboard/explore">Explore</Link>
           </li>
           <li>Notifications</li>
-          <li>Messages</li>
+          <Link to="/dm">
+            <li>Messages</li>
+          </Link>
+
           <li>Bookmarks</li>
 
           <li>
