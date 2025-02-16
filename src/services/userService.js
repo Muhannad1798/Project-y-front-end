@@ -50,6 +50,16 @@ export const getUserProfile = async (id) => {
 }
 
 export const followUser = async (userId) => {
+  const response = await client.post(`/user/${userId}/follow`)
+  return response.data
+}
+
+export const unfollowUser = async (userId) => {
+  const response = await client.post(`/user/${userId}/unfollow`)
+  return response.data
+}
+
+export const followUser = async (userId) => {
   try {
     const response = await client.post(`/user/${userId}/follow`);
     return response.data; // Adjust based on your API response
