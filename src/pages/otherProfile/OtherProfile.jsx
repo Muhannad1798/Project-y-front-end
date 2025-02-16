@@ -1,29 +1,45 @@
-import { Link } from "react-router-dom"
-import "./OtherProfile.css"
-import MyPosts from "../profile/myPosts/MyPosts"
-import { useEffect, useState } from "react"
+import { Link } from 'react-router-dom'
+import './OtherProfile.css'
+import OtherPost from './otherPost/OtherPost'
+import { useEffect, useState } from 'react'
 import {
   getUserFollowers,
   getUserFollowing,
-  getUserProfile
-} from "../../services/userService"
+  getUserProfile,
+  followUser,
+  unfollowUser,
+  getOtherPosts
+} from '../../services/userService'
 
-const OtherProfile = ({ user, myPosts, otherUserId }) => {
+const OtherProfile = ({ user, otherUserId }) => {
   const [following, setFollowing] = useState(0)
   const [followers, setFollowers] = useState(0)
   const [otherUser, setOtherUser] = useState(null)
+  const [isFollowing, setIsFollowing] = useState(false)
+  const [otherPosts, setOtherPosts] = useState(null)
 
-  const getUserFw = async () => {
+  const getOtherUserFw = async () => {
     try {
-      const FollowingData = await getUserFollowing(user._id)
-      console.log(FollowingData)
-
-      setFollowing(FollowingData.following)
+      const FollowingData = await getUserFollowing(otherUserId)
+      setFollowing(FollowingData.following.length)
     } catch (error) {
       setFollowingCount(0)
       console.log(error)
     }
   }
+
+  const getOtherUserPosts = async () => {
+    try {
+      const OtherUserPostsData = await getOtherPosts(otherUserId)
+      console.log(OtherUserPostsData.posts)
+
+      setOtherPosts(OtherUserPostsData.posts)
+    } catch (error) {
+      setOtherPosts(null)
+      console.log(error)
+    }
+  }
+
   const getOtherUserProfile = async () => {
     try {
       const OtherUserData = await getUserProfile(otherUserId)
@@ -34,28 +50,33 @@ const OtherProfile = ({ user, myPosts, otherUserId }) => {
       console.log(error)
     }
   }
-  const getUserFr = async () => {
-    try {
-      const FollowersData = await getUserFollowers(user._id)
-      console.log(FollowersData)
 
-      setFollowers(FollowersData.followers)
+  const getOtherUserFr = async () => {
+    try {
+      const FollowersData = await getUserFollowers(otherUserId)
+      setFollowers(FollowersData.followers.length)
+      setIsFollowing(FollowersData.followers.some((f) => f._id === user?._id))
     } catch (error) {
       setFollowersCount(0)
       console.log(error)
     }
   }
 
-  const handleFollowToggle = async () => {
+  const handleFollow = async () => {
     try {
-      if (isFollowing) {
-        await unfollowUser(otherUserId)
-        setFollowersCount(prev => prev - 1)
-      } else {
-        await followUser(otherUserId)
-        setFollowersCount(prev => prev + 1)
-      }
-      setIsFollowing(!isFollowing)
+      await followUser(otherUserId)
+      setIsFollowing(true)
+      setFollowers((prev) => prev + 1)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleUnfollow = async () => {
+    try {
+      await unfollowUser(otherUserId)
+      setIsFollowing(false)
+      setFollowers((prev) => prev - 1)
     } catch (error) {
       console.log(error)
     }
@@ -65,14 +86,14 @@ const OtherProfile = ({ user, myPosts, otherUserId }) => {
     getUserFr()
     getUserFw()
     getOtherUserProfile()
+    getOtherUserFr()
+    getOtherUserFw()
+    getOtherUserPosts()
   }, [])
   return (
     <div className="profile-container">
       <div className="profile-header-links">
-        <Link to="/settings" className="profile-footer__link">
-          Edit Profile
-        </Link>
-        <Link to="/dashboard" className="profile-footer__link">
+        <Link to="/dashboard/home" className="profile-footer__link">
           Back to Home
         </Link>
       </div>
@@ -123,7 +144,7 @@ const OtherProfile = ({ user, myPosts, otherUserId }) => {
 
       <section className="profile-posts">
         <h3>Posts</h3>
-        <MyPosts user={user} myPosts={myPosts} />
+        <OtherPost otherUser={otherUser} otherPosts={otherPosts} />
       </section>
     </div>
   )

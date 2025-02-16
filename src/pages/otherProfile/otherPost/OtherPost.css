@@ -1,0 +1,39 @@
+.tweet__content {
+  font-size: 14px;
+}
+
+/* Tweet Styling */
+.tweets {
+  margin-top: 20px;
+}
+
+.tweet {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tweet__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tweet__header h3 {
+  font-size: 18px;
+  color: #14171a;
+  margin: 0;
+}
+
+.tweet__header p {
+  font-size: 14px;
+  color: #657786;
+}
+
+.tweet__content {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #14171a;
+}

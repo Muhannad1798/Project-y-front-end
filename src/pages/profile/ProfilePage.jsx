@@ -11,8 +11,8 @@ const ProfilePage = ({ user, myPosts }) => {
   const getUserFw = async () => {
     try {
       const FollowingData = await getUserFollowing(user._id)
-      console.log(FollowingData)
-      setFollowing(FollowingData.following)
+
+      setFollowing(FollowingData.following.length)
     } catch (error) {
       setFollowing(0)
       console.log(error)
@@ -22,8 +22,8 @@ const ProfilePage = ({ user, myPosts }) => {
   const getUserFr = async () => {
     try {
       const FollowersData = await getUserFollowers(user._id)
-      console.log(FollowersData)
-      setFollowers(FollowersData.followers)
+
+      setFollowers(FollowersData.followers.length)
     } catch (error) {
       setFollowers(0)
       console.log(error)
@@ -41,7 +41,7 @@ const ProfilePage = ({ user, myPosts }) => {
         <Link to="/settings" className="profile-footer__link">
           Edit Profile
         </Link>
-        <Link to="/dashboard" className="profile-footer__link">
+        <Link to="/dashboard/home" className="profile-footer__link">
           Back to Home
         </Link>
       </div>

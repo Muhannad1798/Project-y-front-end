@@ -5,12 +5,14 @@ import Home from './pages/Home'
 import Signin from './pages/auth/Signin'
 import Signup from './pages/auth/Signup'
 import Dashboard from './pages/Dashboard'
+import Dashboard2 from './pages/Dashboard2'
 import { useEffect, useState } from 'react'
 import {
   getProfile,
   getPosts,
   getMyPosts,
-  getUserProfile
+  getUserProfile,
+  getFollowingPosts
 } from './services/userService'
 import ProfilePage from './pages/profile/ProfilePage'
 import OtherProfile from './pages/otherProfile/OtherProfile'
@@ -42,6 +44,7 @@ function App() {
       console.log(error)
     }
   }
+
   const [myPosts, setMyPosts] = useState(null)
   const getMyPost = async () => {
     try {
@@ -53,21 +56,24 @@ function App() {
     }
   }
 
-  /*const getOtherUserProfile = async () => {
+  const [followingPosts, setFollowingPosts] = useState(null)
+  const getFollowingPost = async () => {
     try {
-      const OtherUserData = await getUserProfile(otherUserId)
-      console.log(OtherUserData.data)
+      const postData = await getFollowingPosts()
+      console.log(postData)
 
-      setOtherUser(OtherUserData)
+      setFollowingPosts(postData.posts)
     } catch (error) {
-      setOtherUser(null)
+      setPosts(null)
       console.log(error)
     }
-  }*/
+  }
+
   useEffect(() => {
     getUserProfile()
     getPost()
     getMyPost()
+    getFollowingPost()
   }, [])
 
   return (
@@ -76,7 +82,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
-            path="/dashboard"
+            path="/dashboard/explore"
             element={
               <Dashboard
                 user={user}
@@ -84,6 +90,21 @@ function App() {
                 Posts={Posts}
                 setPosts={setPosts}
                 setOtherUserId={setOtherUserId}
+                getPost={getPost}
+              />
+            }
+          />
+          <Route
+            path="/dashboard/home"
+            element={
+              <Dashboard2
+                user={user}
+                logOut={logOut}
+                setPosts={setPosts}
+                Posts={Posts}
+                setOtherUserId={setOtherUserId}
+                followingPosts={followingPosts}
+                getPost={getPost}
               />
             }
           />

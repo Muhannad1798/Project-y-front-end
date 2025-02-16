@@ -1,12 +1,19 @@
-import './style/Post.css'
+import './FollowingPosts.css'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { like, dislike } from '../../services/authService'
 import { getLike } from '../../services/userService'
 
-const Post = ({ Posts, setOtherUserId, user }) => {
+const FollowingPosts = ({
+  followingPosts,
+  otherUser,
+  setOtherUserId,
+  user
+}) => {
+  // Using a state hook to track the liked state and likes count for each post
   const [likeStates, setLikeStates] = useState({})
 
+  // Function to check if a post is liked by the current user
   const checkIfLiked = async (postId) => {
     try {
       const usersLike = await getLike(postId)
@@ -23,17 +30,20 @@ const Post = ({ Posts, setOtherUserId, user }) => {
     }
   }
 
+  // Run when the component is mounted to check the initial state of all posts
   useEffect(() => {
-    Posts.forEach((post) => {
-      checkIfLiked(post._id)
-    })
-  }, [Posts, user])
+    // Set the initial like states for all posts
+    const postIds = followingPosts?.map((post) => post._id)
+    postIds?.forEach((postId) => checkIfLiked(postId)) // Check for each post's like status
+  }, [followingPosts, user])
 
-  const toggleLike = async (e) => {
-    const postId = e.target.id
+  // Toggle Like/Dislike for a specific post
+  const toggleLike = async (postId) => {
     try {
       const currentLikeState = likeStates[postId]
+
       if (currentLikeState.liked) {
+        // Unlike post
         await dislike(postId)
         setLikeStates((prevState) => ({
           ...prevState,
@@ -43,6 +53,7 @@ const Post = ({ Posts, setOtherUserId, user }) => {
           }
         }))
       } else {
+        // Like post
         await like(postId)
         setLikeStates((prevState) => ({
           ...prevState,
@@ -57,29 +68,30 @@ const Post = ({ Posts, setOtherUserId, user }) => {
     }
   }
 
+  // Set the other user ID when clicking on user profile link
   const onClick = (e) => {
     setOtherUserId(e.target.id)
   }
 
   return (
     <div className="tweets">
-      {Posts?.map((post) => (
-        <div key={post?._id} className="tweet">
+      {followingPosts?.map((post) => (
+        <div key={post._id} className="tweet">
           <div className="tweet__header">
             <Link to={`/${post.userID._id}/OtherProfile`} onClick={onClick}>
               <h3 id={post?.userID?._id}>{post?.userID?.username}</h3>
             </Link>
-            <p>{post?.userID?.name}</p>
+            <p>{otherUser?.userID?.name}</p>
           </div>
-          <p className="tweet__content">{post?.post}</p>
+          <p className="tweet__content">{post.post}</p>
 
           <div className="like-section">
             <button
-              id={post?._id}
+              id={post._id}
               className={`like-btn ${
                 likeStates[post._id]?.liked ? 'liked' : ''
               }`}
-              onClick={toggleLike}
+              onClick={() => toggleLike(post._id)}
             >
               {likeStates[post._id]?.liked ? '❤️' : '🤍'}
             </button>
@@ -93,4 +105,4 @@ const Post = ({ Posts, setOtherUserId, user }) => {
   )
 }
 
-export default Post
+export default FollowingPosts
