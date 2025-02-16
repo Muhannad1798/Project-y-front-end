@@ -2,6 +2,7 @@ import '../App.css'
 import './post/Post'
 import Post from './post/Post'
 import Tweet from './tweet/Tweet'
+import Search from '../pages/search/Search'
 
 import SideMenu from '../components/SideMenu'
 const Dashboard = ({
@@ -38,7 +39,7 @@ const Dashboard = ({
         </div>
 
         <div className="rightSidebar">
-          <h3>People you might know</h3>
+        <Search setOtherUserId={setOtherUserId} />
           <div className="trend">
             <p>Random profile</p>
           </div>

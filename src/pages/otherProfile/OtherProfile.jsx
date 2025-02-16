@@ -23,7 +23,7 @@ const OtherProfile = ({ user, otherUserId }) => {
       const FollowingData = await getUserFollowing(otherUserId)
       setFollowing(FollowingData.following.length)
     } catch (error) {
-      setFollowingCount(0)
+      setFollowing(0)
       console.log(error)
     }
   }
@@ -44,7 +44,6 @@ const OtherProfile = ({ user, otherUserId }) => {
     try {
       const OtherUserData = await getUserProfile(otherUserId)
       setOtherUser(OtherUserData)
-      setIsFollowing(OtherUserData.followers.includes(user._id))
     } catch (error) {
       setOtherUser(null)
       console.log(error)
@@ -57,7 +56,7 @@ const OtherProfile = ({ user, otherUserId }) => {
       setFollowers(FollowersData.followers.length)
       setIsFollowing(FollowersData.followers.some((f) => f._id === user?._id))
     } catch (error) {
-      setFollowersCount(0)
+      setFollowers(0)
       console.log(error)
     }
   }
@@ -83,13 +82,12 @@ const OtherProfile = ({ user, otherUserId }) => {
   }
 
   useEffect(() => {
-    getUserFr()
-    getUserFw()
     getOtherUserProfile()
     getOtherUserFr()
     getOtherUserFw()
     getOtherUserPosts()
   }, [])
+
   return (
     <div className="profile-container">
       <div className="profile-header-links">
@@ -102,17 +100,21 @@ const OtherProfile = ({ user, otherUserId }) => {
         <div className="profile-header__info">
           <img
             src={
-              otherUser ? otherUser.avatar : "https://via.placeholder.com/150"
+              otherUser ? otherUser.avatar : 'https://via.placeholder.com/150'
             }
             alt="User Avatar"
             className="profile-avatar"
           />
           <div className="profile-header__details">
-            <h2>
-              name: {otherUser.name}
-            </h2>
-            <p>@</p>
-            <p>Bio: </p>
+            {otherUser ? (
+              <>
+                <h2>{otherUser.name}</h2>
+                <p>@{otherUser.username}</p>
+                <p>Bio: {otherUser.bio}</p>
+              </>
+            ) : (
+              <p>Loading...</p>
+            )}
           </div>
         </div>
       </header>
@@ -120,26 +122,24 @@ const OtherProfile = ({ user, otherUserId }) => {
       <section className="profile-stats">
         <div className="profile-stats__item">
           <h3>Following</h3>
-          <p>
-            {followingCount}
-          </p>
+          <p>{following}</p>
         </div>
         <div className="profile-stats__item">
           <h3>Followers</h3>
-          <p>
-            {followersCount}
-          </p>
+          <p>{followers}</p>
         </div>
       </section>
 
       <section className="profile-action">
-        {isFollowing
-          ? <button className="unfollow-btn" onClick={handleUnfollow}>
-              Unfollow
-            </button>
-          : <button className="follow-btn" onClick={handleFollow}>
-              Follow
-            </button>}
+        {isFollowing ? (
+          <button className="unfollow-btn" onClick={handleUnfollow}>
+            Unfollow
+          </button>
+        ) : (
+          <button className="follow-btn" onClick={handleFollow}>
+            Follow
+          </button>
+        )}
       </section>
 
       <section className="profile-posts">

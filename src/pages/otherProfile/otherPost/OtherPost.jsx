@@ -9,7 +9,7 @@ const OtherPost = ({ otherPosts, otherUser, user }) => {
 
   useEffect(() => {
     // Fetch the like status for each post when the component mounts or updates
-    otherPosts.forEach((post) => {
+    otherPosts?.forEach((post) => {
       fetchLikeStatus(post._id)
     })
   }, [otherPosts, user]) // Re-fetch on posts or user change

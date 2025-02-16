@@ -1,8 +1,8 @@
-import './FollowingPosts.css'
-import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import { like, dislike } from '../../services/authService'
-import { getLike } from '../../services/userService'
+import './FollowingPosts.css';
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { like, dislike } from '../../services/authService';
+import { getLike } from '../../services/userService';
 
 const FollowingPosts = ({
   followingPosts,
@@ -10,68 +10,66 @@ const FollowingPosts = ({
   setOtherUserId,
   user
 }) => {
-  // Using a state hook to track the liked state and likes count for each post
-  const [likeStates, setLikeStates] = useState({})
+  const [likeStates, setLikeStates] = useState({});
 
   // Function to check if a post is liked by the current user
   const checkIfLiked = async (postId) => {
     try {
-      const usersLike = await getLike(postId)
-      const isLiked = usersLike.like.likes.some((f) => f._id === user?._id)
+      const usersLike = await getLike(postId);
+      const isLiked = usersLike.like.likes.some((f) => f._id === user?._id);
       setLikeStates((prevState) => ({
         ...prevState,
         [postId]: {
           liked: isLiked,
           likesCount: usersLike.like.likes.length
         }
-      }))
+      }));
     } catch (error) {
-      console.error('Error checking if post is liked:', error)
+      console.error('Error checking if post is liked:', error);
     }
-  }
+  };
 
   // Run when the component is mounted to check the initial state of all posts
   useEffect(() => {
-    // Set the initial like states for all posts
-    const postIds = followingPosts?.map((post) => post._id)
-    postIds?.forEach((postId) => checkIfLiked(postId)) // Check for each post's like status
-  }, [followingPosts, user])
+    const postIds = followingPosts?.map((post) => post._id);
+    postIds?.forEach((postId) => checkIfLiked(postId));
+  }, [followingPosts, user]);
 
   // Toggle Like/Dislike for a specific post
   const toggleLike = async (postId) => {
     try {
-      const currentLikeState = likeStates[postId]
+      const currentLikeState = likeStates[postId];
 
       if (currentLikeState.liked) {
         // Unlike post
-        await dislike(postId)
+        await dislike(postId);
         setLikeStates((prevState) => ({
           ...prevState,
           [postId]: {
             liked: false,
             likesCount: prevState[postId].likesCount - 1
           }
-        }))
+        }));
       } else {
         // Like post
-        await like(postId)
+        await like(postId);
         setLikeStates((prevState) => ({
           ...prevState,
           [postId]: {
             liked: true,
             likesCount: prevState[postId].likesCount + 1
           }
-        }))
+        }));
       }
     } catch (error) {
-      console.error('Error liking or disliking post:', error)
+      console.error('Error liking or disliking post:', error);
     }
-  }
+  };
 
   // Set the other user ID when clicking on user profile link
   const onClick = (e) => {
-    setOtherUserId(e.target.id)
-  }
+    setOtherUserId(e.target.id);
+  };
 
   return (
     <div className="tweets">
@@ -88,9 +86,7 @@ const FollowingPosts = ({
           <div className="like-section">
             <button
               id={post._id}
-              className={`like-btn ${
-                likeStates[post._id]?.liked ? 'liked' : ''
-              }`}
+              className={`like-btn ${likeStates[post._id]?.liked ? 'liked' : ''}`}
               onClick={() => toggleLike(post._id)}
             >
               {likeStates[post._id]?.liked ? '❤️' : '🤍'}
@@ -102,7 +98,7 @@ const FollowingPosts = ({
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default FollowingPosts
+export default FollowingPosts;
