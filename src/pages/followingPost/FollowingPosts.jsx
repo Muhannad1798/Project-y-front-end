@@ -31,18 +31,17 @@ const FollowingPosts = ({
 
   // Run when the component is mounted to check the initial state of all posts
   useEffect(() => {
-    const postIds = followingPosts?.map((post) => post._id);
-    postIds?.forEach((postId) => checkIfLiked(postId));
-  }, [followingPosts, user]);
+    // Set the initial like states for all posts
+    const postIds = followingPosts?.map((post) => post._id)
+    postIds?.forEach((postId) => checkIfLiked(postId)) // Check for each post's like status
+  }, [followingPosts, user])
 
-  // Toggle Like/Dislike for a specific post
   const toggleLike = async (postId) => {
     try {
       const currentLikeState = likeStates[postId];
 
       if (currentLikeState.liked) {
-        // Unlike post
-        await dislike(postId);
+        await dislike(postId)
         setLikeStates((prevState) => ({
           ...prevState,
           [postId]: {
@@ -51,8 +50,7 @@ const FollowingPosts = ({
           }
         }));
       } else {
-        // Like post
-        await like(postId);
+        await like(postId)
         setLikeStates((prevState) => ({
           ...prevState,
           [postId]: {
@@ -66,7 +64,6 @@ const FollowingPosts = ({
     }
   };
 
-  // Set the other user ID when clicking on user profile link
   const onClick = (e) => {
     setOtherUserId(e.target.id);
   };

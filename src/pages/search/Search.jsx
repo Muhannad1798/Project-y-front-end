@@ -1,4 +1,4 @@
-import "../search/Search.css"
+import "./Search.css"
 import React, { useState } from "react"
 
 // Mock user data for demonstration
