@@ -5,7 +5,6 @@ import Tweet from './tweet/Tweet'
 import Search from '../pages/search/Search'
 
 import SideMenu from '../components/SideMenu'
-import Search from './search/Search'
 const Dashboard = ({
   logOut,
   user,
