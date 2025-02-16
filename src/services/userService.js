@@ -62,7 +62,6 @@ export const getUserFollowers = async (userId) => {
 
 export const getUserProfile = async (id) => {
   const response = await client.get(`/user/${id}/profile`)
-
   return response.data
 }
 
