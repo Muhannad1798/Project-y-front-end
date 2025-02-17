@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom' // Import useNavigate hook
 import './OtherProfile.css'
 import OtherPost from './otherPost/OtherPost'
 import { useEffect, useState } from 'react'
@@ -10,13 +10,15 @@ import {
   unfollowUser,
   getOtherPosts
 } from '../../services/userService'
+import { startNewDM } from '../../services/authService'
 
-const OtherProfile = ({ user, otherUserId }) => {
+const OtherProfile = ({ user, otherUserId, getPost, getFollowingPost }) => {
   const [following, setFollowing] = useState(0)
   const [followers, setFollowers] = useState(0)
   const [otherUser, setOtherUser] = useState(null)
   const [isFollowing, setIsFollowing] = useState(false)
   const [otherPosts, setOtherPosts] = useState(null)
+  const navigate = useNavigate() // Initialize useNavigate
 
   const getOtherUserFw = async () => {
     try {
@@ -31,8 +33,6 @@ const OtherProfile = ({ user, otherUserId }) => {
   const getOtherUserPosts = async () => {
     try {
       const OtherUserPostsData = await getOtherPosts(otherUserId)
-      console.log(OtherUserPostsData.posts)
-
       setOtherPosts(OtherUserPostsData.posts)
     } catch (error) {
       setOtherPosts(null)
@@ -53,8 +53,10 @@ const OtherProfile = ({ user, otherUserId }) => {
   const getOtherUserFr = async () => {
     try {
       const FollowersData = await getUserFollowers(otherUserId)
-      setFollowers(FollowersData.followers.length)
-      setIsFollowing(FollowersData.followers.some((f) => f._id === user?._id))
+      setFollowers(FollowersData?.followers?.length)
+      setIsFollowing(
+        FollowersData?.followers?.some((f) => f?._id === user?._id)
+      )
     } catch (error) {
       setFollowers(0)
       console.log(error)
@@ -81,6 +83,26 @@ const OtherProfile = ({ user, otherUserId }) => {
     }
   }
 
+  const onClick = () => {
+    getPost()
+    getFollowingPost()
+  }
+
+  const startDM = async () => {
+    try {
+      const convData = await startNewDM(otherUserId)
+      const convId = convData.conversation_id || convData.newConvo._id
+      console.log('conv')
+      console.log(convId)
+
+      const dmId = convId[0]._id
+
+      navigate(`/conversations/${dmId}`)
+    } catch (error) {
+      console.log('Error starting DM:', error)
+    }
+  }
+
   useEffect(() => {
     getOtherUserProfile()
     getOtherUserFr()
@@ -91,7 +113,14 @@ const OtherProfile = ({ user, otherUserId }) => {
   return (
     <div className="profile-container">
       <div className="profile-header-links">
-        <Link to="/dashboard/home" className="profile-footer__link">
+        <Link className="profile-footer__link" onClick={startDM}>
+          Message
+        </Link>
+        <Link
+          to="/dashboard/home"
+          className="profile-footer__link"
+          onClick={onClick}
+        >
           Back to Home
         </Link>
       </div>

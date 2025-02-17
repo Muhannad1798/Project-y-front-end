@@ -80,3 +80,19 @@ export const getLike = async (postId) => {
 
   return response.data
 }
+export const getUserConversation = async () => {
+  try {
+    const response = await client.get('/chat/dm/conv')
+
+    console.log('Response from backend:', response)
+
+    console.log('response')
+
+    console.log(response.data.conversations)
+
+    return response.data.conversations
+  } catch (error) {
+    console.error('Error fetching conversations:', error)
+    return []
+  }
+}
