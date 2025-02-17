@@ -33,3 +33,20 @@ export const dislike = async (id) => {
 
   return response.data
 }
+
+export const getConversationMessages = async (conversationId) => {
+  const response = await client.get(`/chat/${conversationId}/dm`)
+
+  return response.data.comment
+}
+
+export const sendMessage = async (conversationId, messageData) => {
+  const response = await client.post(`/chat/${conversationId}/dm`, messageData)
+
+  return response.data
+}
+
+export const startNewDM = async (userId) => {
+  const response = await client.post(`/chat/${userId}/profile/dm`)
+  return response.data
+}

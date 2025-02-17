@@ -8,7 +8,6 @@ const Tweet = ({ setPosts, Posts, user, getPost }) => {
   }
   const [formData, setFormData] = useState(initialFormData)
 
-  const [message, setMessage] = useState('')
   const handleSubmit = async (e) => {
     try {
       await tweet(formData)
@@ -16,7 +15,6 @@ const Tweet = ({ setPosts, Posts, user, getPost }) => {
       setFormData(initialFormData)
       getPost()
     } catch (error) {
-      setMessage(error.response?.data?.error)
       console.log(error)
     }
   }

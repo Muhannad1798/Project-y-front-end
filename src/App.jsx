@@ -17,6 +17,7 @@ import {
 import ProfilePage from './pages/profile/ProfilePage'
 import OtherProfile from './pages/otherProfile/OtherProfile'
 import ConversationsPage from './pages/conversationsPage/ConversationsPage'
+import DMChat from './pages/conversationsPage/DMChat/DMChat'
 
 function App() {
   const [otherUserId, setOtherUserId] = useState(null)
@@ -126,7 +127,14 @@ function App() {
           />
           <Route
             path="/:userid/profile"
-            element={<ProfilePage user={user} myPosts={myPosts} />}
+            element={
+              <ProfilePage
+                user={user}
+                myPosts={myPosts}
+                getPost={getPost}
+                getFollowingPost={getFollowingPost}
+              />
+            }
           />
           <Route
             path="/:userid/OtherProfile"
@@ -135,10 +143,16 @@ function App() {
                 user={user}
                 myPosts={myPosts}
                 otherUserId={otherUserId}
+                getPost={getPost}
+                getFollowingPost={getFollowingPost}
               />
             }
           />
           <Route path="/dm" element={<ConversationsPage />} />
+          <Route
+            path="/conversations/:convId"
+            element={<DMChat user={user} />}
+          />
         </Routes>
       </main>
     </>
