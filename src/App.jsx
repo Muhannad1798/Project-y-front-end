@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import NavBar from './components/SideMenu'
 import Home from './pages/Home'
 import Signin from './pages/auth/Signin'
 import Signup from './pages/auth/Signup'
@@ -11,14 +10,13 @@ import {
   getProfile,
   getPosts,
   getMyPosts,
-  getUserProfile,
   getFollowingPosts
 } from './services/userService'
 import ProfilePage from './pages/profile/ProfilePage'
 import OtherProfile from './pages/otherProfile/OtherProfile'
 import ConversationsPage from './pages/conversationsPage/ConversationsPage'
 import DMChat from './pages/conversationsPage/DMChat/DMChat'
-
+import Comment from './pages/comment/Comments'
 function App() {
   const [otherUserId, setOtherUserId] = useState(null)
   const [user, setUser] = useState(null)
@@ -59,7 +57,6 @@ function App() {
       )
       setMyPosts(sortedPosts)
     } catch (error) {
-      setPosts(null)
       console.log(error)
     }
   }
@@ -100,6 +97,8 @@ function App() {
                 setPosts={setPosts}
                 setOtherUserId={setOtherUserId}
                 getPost={getPost}
+                getMyPost={getMyPost}
+                setMyPosts={setMyPosts}
               />
             }
           />
@@ -114,6 +113,8 @@ function App() {
                 setOtherUserId={setOtherUserId}
                 followingPosts={followingPosts}
                 getPost={getPost}
+                getMyPost={getMyPost}
+                setMyPosts={setMyPosts}
               />
             }
           />
@@ -136,8 +137,9 @@ function App() {
               />
             }
           />
+
           <Route
-            path="/:userid/OtherProfile"
+            path="/profile/user/:userId"
             element={
               <OtherProfile
                 user={user}
@@ -153,6 +155,7 @@ function App() {
             path="/conversations/:convId"
             element={<DMChat user={user} />}
           />
+          <Route path="/posts/:postId/comments" element={<Comment />} />
         </Routes>
       </main>
     </>

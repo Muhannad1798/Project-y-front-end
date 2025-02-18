@@ -4,7 +4,7 @@ import MyPosts from './myPosts/MyPosts'
 import { useEffect, useState } from 'react'
 import { getUserFollowers, getUserFollowing } from '../../services/userService'
 
-const ProfilePage = ({ user, myPosts }) => {
+const ProfilePage = ({ user, myPosts, getMyPost, setMyPosts }) => {
   const [following, setFollowing] = useState(0)
   const [followers, setFollowers] = useState(0)
 
@@ -48,8 +48,8 @@ const ProfilePage = ({ user, myPosts }) => {
       <header className="profile-header">
         <div className="profile-header__info">
           <img
-            src="https://via.placeholder.com/150"
-            alt="User Avatar"
+            src="https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/egg-3442-e1f6463624338504cd021bf23aef8441@1x.jpg"
+            alt="Old Twitter Egg"
             className="profile-avatar"
           />
           <div className="profile-header__details">
@@ -73,7 +73,12 @@ const ProfilePage = ({ user, myPosts }) => {
 
       <section className="profile-posts">
         <h3>Posts</h3>
-        <MyPosts user={user} myPosts={myPosts} />
+        <MyPosts
+          user={user}
+          myPosts={myPosts}
+          getMyPost={getMyPost}
+          setMyPosts={setMyPosts}
+        />
       </section>
     </div>
   )

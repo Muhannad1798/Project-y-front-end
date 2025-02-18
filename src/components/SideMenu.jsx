@@ -25,9 +25,9 @@ const SideMenu = ({ user, logOut }) => {
           <li>Bookmarks</li>
 
           <li>
-            <a to="/" onClick={logOut}>
+            <Link to="/auth/signin" onClick={logOut}>
               Log out
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

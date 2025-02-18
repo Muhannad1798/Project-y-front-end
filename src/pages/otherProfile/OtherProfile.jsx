@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom' // Import useNavigate hook
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import './OtherProfile.css'
 import OtherPost from './otherPost/OtherPost'
 import { useEffect, useState } from 'react'
@@ -12,17 +12,19 @@ import {
 } from '../../services/userService'
 import { startNewDM } from '../../services/authService'
 
-const OtherProfile = ({ user, otherUserId, getPost, getFollowingPost }) => {
+const OtherProfile = ({ user, getPost, getFollowingPost }) => {
+  const { userId } = useParams()
   const [following, setFollowing] = useState(0)
   const [followers, setFollowers] = useState(0)
   const [otherUser, setOtherUser] = useState(null)
   const [isFollowing, setIsFollowing] = useState(false)
   const [otherPosts, setOtherPosts] = useState(null)
-  const navigate = useNavigate() // Initialize useNavigate
+  const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
 
   const getOtherUserFw = async () => {
     try {
-      const FollowingData = await getUserFollowing(otherUserId)
+      const FollowingData = await getUserFollowing(userId)
       setFollowing(FollowingData.following.length)
     } catch (error) {
       setFollowing(0)
@@ -32,7 +34,7 @@ const OtherProfile = ({ user, otherUserId, getPost, getFollowingPost }) => {
 
   const getOtherUserPosts = async () => {
     try {
-      const OtherUserPostsData = await getOtherPosts(otherUserId)
+      const OtherUserPostsData = await getOtherPosts(userId)
       setOtherPosts(OtherUserPostsData.posts)
     } catch (error) {
       setOtherPosts(null)
@@ -40,9 +42,15 @@ const OtherProfile = ({ user, otherUserId, getPost, getFollowingPost }) => {
     }
   }
 
+  const myUser = () => {
+    if (userId === user?._id) {
+      navigate(`/${user?._id}/profile`)
+    }
+  }
+
   const getOtherUserProfile = async () => {
     try {
-      const OtherUserData = await getUserProfile(otherUserId)
+      const OtherUserData = await getUserProfile(userId)
       setOtherUser(OtherUserData)
     } catch (error) {
       setOtherUser(null)
@@ -52,7 +60,7 @@ const OtherProfile = ({ user, otherUserId, getPost, getFollowingPost }) => {
 
   const getOtherUserFr = async () => {
     try {
-      const FollowersData = await getUserFollowers(otherUserId)
+      const FollowersData = await getUserFollowers(userId)
       setFollowers(FollowersData?.followers?.length)
       setIsFollowing(
         FollowersData?.followers?.some((f) => f?._id === user?._id)
@@ -65,7 +73,7 @@ const OtherProfile = ({ user, otherUserId, getPost, getFollowingPost }) => {
 
   const handleFollow = async () => {
     try {
-      await followUser(otherUserId)
+      await followUser(userId)
       setIsFollowing(true)
       setFollowers((prev) => prev + 1)
     } catch (error) {
@@ -75,7 +83,7 @@ const OtherProfile = ({ user, otherUserId, getPost, getFollowingPost }) => {
 
   const handleUnfollow = async () => {
     try {
-      await unfollowUser(otherUserId)
+      await unfollowUser(userId)
       setIsFollowing(false)
       setFollowers((prev) => prev - 1)
     } catch (error) {
@@ -90,7 +98,7 @@ const OtherProfile = ({ user, otherUserId, getPost, getFollowingPost }) => {
 
   const startDM = async () => {
     try {
-      const convData = await startNewDM(otherUserId)
+      const convData = await startNewDM(userId)
       const convId = convData.conversation_id || convData.newConvo._id
       console.log('conv')
       console.log(convId)
@@ -104,77 +112,89 @@ const OtherProfile = ({ user, otherUserId, getPost, getFollowingPost }) => {
   }
 
   useEffect(() => {
+    setLoading(true)
+    myUser()
     getOtherUserProfile()
     getOtherUserFr()
     getOtherUserFw()
     getOtherUserPosts()
-  }, [])
+  }, [userId])
+
+  useEffect(() => {
+    if (otherUser && following >= 0 && followers >= 0 && otherPosts) {
+      setLoading(false)
+    }
+  }, [otherUser, following, followers, otherPosts])
 
   return (
     <div className="profile-container">
-      <div className="profile-header-links">
-        <Link className="profile-footer__link" onClick={startDM}>
-          Message
-        </Link>
-        <Link
-          to="/dashboard/home"
-          className="profile-footer__link"
-          onClick={onClick}
-        >
-          Back to Home
-        </Link>
-      </div>
-
-      <header className="profile-header">
-        <div className="profile-header__info">
-          <img
-            src={
-              otherUser ? otherUser.avatar : 'https://via.placeholder.com/150'
-            }
-            alt="User Avatar"
-            className="profile-avatar"
-          />
-          <div className="profile-header__details">
-            {otherUser ? (
-              <>
-                <h2>{otherUser.name}</h2>
-                <p>@{otherUser.username}</p>
-                <p>Bio: {otherUser.bio}</p>
-              </>
-            ) : (
-              <p>Loading...</p>
-            )}
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <div className="profile-header-links">
+            <Link className="profile-footer__link" onClick={startDM}>
+              Message
+            </Link>
+            <Link
+              to="/dashboard/home"
+              className="profile-footer__link"
+              onClick={onClick}
+            >
+              Back to Home
+            </Link>
           </div>
-        </div>
-      </header>
 
-      <section className="profile-stats">
-        <div className="profile-stats__item">
-          <h3>Following</h3>
-          <p>{following}</p>
-        </div>
-        <div className="profile-stats__item">
-          <h3>Followers</h3>
-          <p>{followers}</p>
-        </div>
-      </section>
+          <header className="profile-header">
+            <div className="profile-header__info">
+              <img
+                src="https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/egg-3442-e1f6463624338504cd021bf23aef8441@1x.jpg"
+                alt="Old Twitter Egg"
+                className="profile-avatar"
+              />
+              <div className="profile-header__details">
+                {otherUser ? (
+                  <>
+                    <h2>{otherUser.name}</h2>
+                    <p>@{otherUser.username}</p>
+                    <p>Bio: {otherUser.bio}</p>
+                  </>
+                ) : (
+                  <p>Loading...</p>
+                )}
+              </div>
+            </div>
+          </header>
 
-      <section className="profile-action">
-        {isFollowing ? (
-          <button className="unfollow-btn" onClick={handleUnfollow}>
-            Unfollow
-          </button>
-        ) : (
-          <button className="follow-btn" onClick={handleFollow}>
-            Follow
-          </button>
-        )}
-      </section>
+          <section className="profile-stats">
+            <div className="profile-stats__item">
+              <h3>Following</h3>
+              <p>{following}</p>
+            </div>
+            <div className="profile-stats__item">
+              <h3>Followers</h3>
+              <p>{followers}</p>
+            </div>
+          </section>
 
-      <section className="profile-posts">
-        <h3>Posts</h3>
-        <OtherPost otherUser={otherUser} otherPosts={otherPosts} />
-      </section>
+          <section className="profile-action">
+            {isFollowing ? (
+              <button className="unfollow-btn" onClick={handleUnfollow}>
+                Unfollow
+              </button>
+            ) : (
+              <button className="follow-btn" onClick={handleFollow}>
+                Follow
+              </button>
+            )}
+          </section>
+
+          <section className="profile-posts">
+            <h3>Posts</h3>
+            <OtherPost otherUser={otherUser} otherPosts={otherPosts} />
+          </section>
+        </>
+      )}
     </div>
   )
 }
