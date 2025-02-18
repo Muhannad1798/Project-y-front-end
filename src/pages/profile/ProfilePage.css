@@ -1,20 +1,18 @@
-/* General Container */
 .profile-container {
   padding: 30px;
   max-width: 1100px;
   margin: auto;
-  background-color: #f5f8fa; /* Light background for the container */
+  background-color: #f5f8fa;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Profile Header */
 .profile-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 25px;
-  border-bottom: 2px solid #e1e8ed; /* Underline for separation */
+  border-bottom: 2px solid #e1e8ed;
   padding-bottom: 15px;
 }
 
@@ -28,12 +26,12 @@
   height: 120px;
   border-radius: 50%;
   margin-right: 20px;
-  transition: transform 0.3s ease; /* Avatar hover effect */
-  border: 3px solid #1da1f2; /* Avatar border to make it stand out */
+  transition: transform 0.3s ease;
+  border: 3px solid #1da1f2;
 }
 
 .profile-avatar:hover {
-  transform: scale(1.1); /* Slight zoom effect */
+  transform: scale(1.1);
 }
 
 .profile-header__details h2 {
@@ -43,7 +41,7 @@
 }
 
 .profile-header__details p {
-  color: #657786; /* Lighter gray for secondary text */
+  color: #657786;
   font-size: 1em;
 }
 
@@ -66,7 +64,6 @@
   color: #1991d0;
 }
 
-/* Profile Stats Section */
 .profile-stats {
   display: flex;
   justify-content: space-around;
@@ -87,14 +84,13 @@
 .profile-stats__item p {
   font-size: 1.5em;
   font-weight: bold;
-  color: #1da1f2; /* Highlight follower/following numbers */
+  color: #1da1f2;
 }
 
-/* Action Button (Follow/Unfollow) */
 .profile-action {
   text-align: center;
   margin-top: 20px;
-  position: relative; /* Necessary for button positioning */
+  position: relative;
 }
 
 button {
@@ -114,7 +110,7 @@ button {
 
 .follow-btn:hover {
   background-color: #1991d0;
-  transform: scale(1.05); /* Slight zoom effect on hover */
+  transform: scale(1.05);
 }
 
 .unfollow-btn {
@@ -124,10 +120,9 @@ button {
 
 .unfollow-btn:hover {
   background-color: #ccd6dd;
-  transform: scale(1.05); /* Slight zoom effect on hover */
+  transform: scale(1.05);
 }
 
-/* Profile Posts Section */
 .profile-posts {
   margin-top: 30px;
 }
@@ -139,17 +134,15 @@ button {
   font-weight: 600;
 }
 
-/* Remove underline from all links */
 a {
   text-decoration: none;
   color: #14171a;
 }
 
 a:hover {
-  color: #1da1f2; /* Twitter blue */
+  color: #1da1f2;
 }
 
-/* Responsive Design for Smaller Screens */
 @media (max-width: 768px) {
   .profile-header {
     flex-direction: column;

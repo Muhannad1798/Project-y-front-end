@@ -1,26 +1,35 @@
 import './Search.css'
-import React, { useState } from 'react'
-
-// Mock user data for demonstration
-const mockUsers = [
-  { _id: '1', username: 'john_doe' },
-  { _id: '2', username: 'jane_smith' },
-  { _id: '3', username: 'alice_jones' },
-  { _id: '4', username: 'bob_brown' }
-]
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { getUsers } from '../../services/userService'
 
 const Search = ({ setOtherUserId }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
 
+  const [allUsers, setAllUsers] = useState(null)
+
+  const getAllTheUsers = async () => {
+    try {
+      const allUsersData = await getUsers()
+      setAllUsers(allUsersData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getAllTheUsers()
+  }, [])
+
   const handleSearch = () => {
     if (searchQuery) {
-      const results = mockUsers.filter((user) =>
+      const filteredUsers = allUsers.filter((user) =>
         user.username.toLowerCase().includes(searchQuery.toLowerCase())
       )
-      setSearchResults(results)
+      setSearchResults(filteredUsers)
     } else {
-      setSearchResults([])
+      setSearchResults(allUsers)
     }
   }
 
@@ -36,16 +45,18 @@ const Search = ({ setOtherUserId }) => {
       <button onClick={handleSearch} className="search-button">
         Search
       </button>
+
       {searchResults.length > 0 && (
         <div className="search-results">
           {searchResults.map((user) => (
-            <div
+            <Link
+              to={`/profile/user/${user._id}`}
               key={user._id}
               className="search-result"
               onClick={() => setOtherUserId(user._id)}
             >
               <h3>{user.username}</h3>
-            </div>
+            </Link>
           ))}
         </div>
       )}

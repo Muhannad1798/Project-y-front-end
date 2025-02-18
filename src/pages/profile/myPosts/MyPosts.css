@@ -2,7 +2,6 @@
   font-size: 14px;
 }
 
-/* Tweet Styling */
 .tweets {
   margin-top: 20px;
 }
@@ -36,4 +35,18 @@
   margin-top: 10px;
   font-size: 16px;
   color: #14171a;
+}
+
+.delete-btn {
+  font-size: large;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgba(82, 91, 195, 0.75);
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.delete-btn:hover {
+  color: red;
 }

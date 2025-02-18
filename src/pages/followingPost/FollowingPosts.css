@@ -63,22 +63,19 @@
   border: none;
   cursor: pointer;
   font-size: 24px;
-  color: #e1e8ed; /* Default gray color for unliked */
+  color: #e1e8ed;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
-/* When the post is liked */
 .like-btn.liked {
-  color: #ff3366; /* Red heart when liked */
-  transform: scale(1.2); /* Slightly enlarge when liked */
+  color: #ff3366;
+  transform: scale(1.2);
 }
 
-/* Hover effect for like button */
 .like-btn:hover {
-  color: #ff577f; /* Lighter red for hover effect */
+  color: #ff577f;
 }
 
-/* Like count styling */
 .like-count {
   font-size: 1.1em;
   font-weight: 500;

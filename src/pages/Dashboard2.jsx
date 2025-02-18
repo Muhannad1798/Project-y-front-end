@@ -10,7 +10,8 @@ const Dashboard = ({
   Posts,
   setPosts,
   setOtherUserId,
-  followingPosts
+  followingPosts,
+  allUsers
 }) => {
   if (!user) {
     return <p>Please sign in</p>
@@ -36,7 +37,7 @@ const Dashboard = ({
         </div>
 
         <div className="rightSidebar">
-          <Search />
+          <Search allUsers={allUsers} />
           <div className="trend">
             <p>Random profile</p>
           </div>

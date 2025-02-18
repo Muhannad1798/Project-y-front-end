@@ -26,7 +26,7 @@ const Signup = ({ getUserProfile }) => {
       await signUp(formData)
       await getUserProfile()
       setFormData(initialFormData)
-      navigate('/dashboard')
+      navigate('/dashboard/home')
     } catch (error) {
       setMessage(error.response?.data?.error)
       console.log(error)

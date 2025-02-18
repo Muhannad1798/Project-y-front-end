@@ -80,19 +80,43 @@ export const getLike = async (postId) => {
 
   return response.data
 }
+
 export const getUserConversation = async () => {
   try {
     const response = await client.get('/chat/dm/conv')
-
-    console.log('Response from backend:', response)
-
-    console.log('response')
-
-    console.log(response.data.conversations)
-
     return response.data.conversations
   } catch (error) {
-    console.error('Error fetching conversations:', error)
+    console.error(error)
     return []
   }
+}
+
+export const getAllUsers = async () => {
+  const response = await client.get(`/user/users`)
+
+  return response.data
+}
+
+export const deletePost = async (postid) => {
+  const response = await client.delete(`/post/${postid}/delete`)
+
+  return response.data
+}
+
+export const getOnePost = async (postId) => {
+  const response = await client.get(`/post/${postId}/onePost`)
+
+  return response.data.posts
+}
+
+export const getPostComments = async (postId) => {
+  const response = await client.get(`/comment/${postId}/com`)
+
+  return response.data.comments
+}
+
+export const createComment = async (postId, comment) => {
+  const response = await client.post(`/comment/${postId}/rep`, comment)
+
+  return response.data
 }
