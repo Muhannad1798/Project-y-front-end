@@ -1,8 +1,17 @@
+<<<<<<< HEAD
 import './FollowingPosts.css';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { like, dislike } from '../../services/authService';
 import { getLike } from '../../services/userService';
+=======
+import './FollowingPosts.css'
+import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { like, dislike } from '../../services/authService'
+import { getLike } from '../../services/userService'
+import { useNavigate } from 'react-router-dom'
+>>>>>>> 19a8210f29bf73d0459afe06a06846bda5c522f4
 
 const FollowingPosts = ({
   followingPosts,
@@ -10,9 +19,17 @@ const FollowingPosts = ({
   setOtherUserId,
   user
 }) => {
+<<<<<<< HEAD
   const [likeStates, setLikeStates] = useState({});
+=======
+  const navigate = useNavigate()
 
-  // Function to check if a post is liked by the current user
+  const handleComment = async (postId) => {
+    navigate(`/posts/${postId}/comments`)
+  }
+  const [likeStates, setLikeStates] = useState({})
+>>>>>>> 19a8210f29bf73d0459afe06a06846bda5c522f4
+
   const checkIfLiked = async (postId) => {
     try {
       const usersLike = await getLike(postId);
@@ -29,17 +46,21 @@ const FollowingPosts = ({
     }
   };
 
-  // Run when the component is mounted to check the initial state of all posts
   useEffect(() => {
-    // Set the initial like states for all posts
-    const postIds = followingPosts?.map((post) => post._id)
-    postIds?.forEach((postId) => checkIfLiked(postId)) // Check for each post's like status
+    followingPosts?.forEach((post) => {
+      checkIfLiked(post._id)
+    })
   }, [followingPosts, user])
 
-  const toggleLike = async (postId) => {
+  const toggleLike = async (e) => {
+    const postId = e.target.id
     try {
+<<<<<<< HEAD
       const currentLikeState = likeStates[postId];
 
+=======
+      const currentLikeState = likeStates[postId]
+>>>>>>> 19a8210f29bf73d0459afe06a06846bda5c522f4
       if (currentLikeState.liked) {
         await dislike(postId)
         setLikeStates((prevState) => ({
@@ -71,20 +92,28 @@ const FollowingPosts = ({
   return (
     <div className="tweets">
       {followingPosts?.map((post) => (
-        <div key={post._id} className="tweet">
+        <div key={post?._id} className="tweet">
           <div className="tweet__header">
-            <Link to={`/${post.userID._id}/OtherProfile`} onClick={onClick}>
+            <Link to={`/profile/user/${post.userID._id}`} onClick={onClick}>
               <h3 id={post?.userID?._id}>{post?.userID?.username}</h3>
             </Link>
-            <p>{otherUser?.userID?.name}</p>
+            <p>{post?.userID?.name}</p>
           </div>
-          <p className="tweet__content">{post.post}</p>
+          <p className="tweet__content">{post?.post}</p>
 
           <div className="like-section">
             <button
+<<<<<<< HEAD
               id={post._id}
               className={`like-btn ${likeStates[post._id]?.liked ? 'liked' : ''}`}
               onClick={() => toggleLike(post._id)}
+=======
+              id={post?._id}
+              className={`like-btn ${
+                likeStates[post._id]?.liked ? 'liked' : ''
+              }`}
+              onClick={toggleLike}
+>>>>>>> 19a8210f29bf73d0459afe06a06846bda5c522f4
             >
               {likeStates[post._id]?.liked ? '❤️' : '🤍'}
             </button>
@@ -92,10 +121,17 @@ const FollowingPosts = ({
               {likeStates[post._id]?.likesCount || 0} Likes
             </span>
           </div>
+          <button onClick={() => handleComment(post._id)}>comments</button>
         </div>
       ))}
     </div>
+<<<<<<< HEAD
   );
 };
 
 export default FollowingPosts;
+=======
+  )
+}
+export default FollowingPosts
+>>>>>>> 19a8210f29bf73d0459afe06a06846bda5c522f4

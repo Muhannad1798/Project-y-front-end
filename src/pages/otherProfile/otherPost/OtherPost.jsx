@@ -52,9 +52,9 @@ const OtherPost = ({ otherPosts, otherUser, user }) => {
         <div key={post._id} className="tweet">
           <div className="tweet__header">
             <Link to={`/${post.userID._id}/OtherProfile`}>
-              <h3>{otherUser.username}</h3>
+              <h3>{post?.userID?.username}</h3>
             </Link>
-            <p>{otherUser.name}</p>
+            <p>{post?.userID?.name}</p>
           </div>
           <p className="tweet__content">{post.post}</p>
 

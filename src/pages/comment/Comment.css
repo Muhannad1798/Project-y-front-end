@@ -1,0 +1,60 @@
+.comment-page {
+  padding: 20px;
+}
+
+.post {
+  margin-bottom: 20px;
+}
+
+.comments-section {
+  margin-top: 20px;
+}
+
+.comment {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.comment-username {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.comment-time {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.add-comment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

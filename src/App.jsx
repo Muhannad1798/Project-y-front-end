@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import NavBar from './components/SideMenu'
 import Home from './pages/Home'
 import Signin from './pages/auth/Signin'
 import Signup from './pages/auth/Signup'
@@ -11,13 +10,13 @@ import {
   getProfile,
   getPosts,
   getMyPosts,
-  getUserProfile,
   getFollowingPosts
 } from './services/userService'
 import ProfilePage from './pages/profile/ProfilePage'
 import OtherProfile from './pages/otherProfile/OtherProfile'
 import ConversationsPage from './pages/conversationsPage/ConversationsPage'
-
+import DMChat from './pages/conversationsPage/DMChat/DMChat'
+import Comment from './pages/comment/Comments'
 function App() {
   const [otherUserId, setOtherUserId] = useState(null)
   const [user, setUser] = useState(null)
@@ -39,7 +38,10 @@ function App() {
   const getPost = async () => {
     try {
       const postData = await getPosts()
-      setPosts(postData.posts)
+      const sortedPosts = postData.posts.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      )
+      setPosts(sortedPosts)
     } catch (error) {
       setPosts(null)
       console.log(error)
@@ -50,9 +52,11 @@ function App() {
   const getMyPost = async () => {
     try {
       const postData = await getMyPosts()
-      setMyPosts(postData.posts)
+      const sortedPosts = postData.posts.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      )
+      setMyPosts(sortedPosts)
     } catch (error) {
-      setPosts(null)
       console.log(error)
     }
   }
@@ -61,9 +65,10 @@ function App() {
   const getFollowingPost = async () => {
     try {
       const postData = await getFollowingPosts()
-      console.log(postData)
-
-      setFollowingPosts(postData.posts)
+      const sortedPosts = postData.posts.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      )
+      setFollowingPosts(sortedPosts)
     } catch (error) {
       setPosts(null)
       console.log(error)
@@ -92,6 +97,8 @@ function App() {
                 setPosts={setPosts}
                 setOtherUserId={setOtherUserId}
                 getPost={getPost}
+                getMyPost={getMyPost}
+                setMyPosts={setMyPosts}
               />
             }
           />
@@ -106,6 +113,8 @@ function App() {
                 setOtherUserId={setOtherUserId}
                 followingPosts={followingPosts}
                 getPost={getPost}
+                getMyPost={getMyPost}
+                setMyPosts={setMyPosts}
               />
             }
           />
@@ -119,20 +128,34 @@ function App() {
           />
           <Route
             path="/:userid/profile"
-            element={<ProfilePage user={user} myPosts={myPosts} />}
+            element={
+              <ProfilePage
+                user={user}
+                myPosts={myPosts}
+                getPost={getPost}
+                getFollowingPost={getFollowingPost}
+              />
+            }
           />
+
           <Route
-            path="/:userid/OtherProfile"
+            path="/profile/user/:userId"
             element={
               <OtherProfile
                 user={user}
                 myPosts={myPosts}
                 otherUserId={otherUserId}
+                getPost={getPost}
+                getFollowingPost={getFollowingPost}
               />
             }
           />
-
           <Route path="/dm" element={<ConversationsPage />} />
+          <Route
+            path="/conversations/:convId"
+            element={<DMChat user={user} />}
+          />
+          <Route path="/posts/:postId/comments" element={<Comment />} />
         </Routes>
       </main>
     </>

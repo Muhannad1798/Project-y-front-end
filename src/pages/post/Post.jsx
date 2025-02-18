@@ -3,9 +3,15 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { like, dislike } from '../../services/authService'
 import { getLike } from '../../services/userService'
+import { useNavigate } from 'react-router-dom'
 
 const Post = ({ Posts, setOtherUserId, user }) => {
   const [likeStates, setLikeStates] = useState({})
+  const navigate = useNavigate()
+
+  const handleComment = async (postId) => {
+    navigate(`/posts/${postId}/comments`)
+  }
 
   const checkIfLiked = async (postId) => {
     try {
@@ -66,7 +72,7 @@ const Post = ({ Posts, setOtherUserId, user }) => {
       {Posts?.map((post) => (
         <div key={post?._id} className="tweet">
           <div className="tweet__header">
-            <Link to={`/${post.userID._id}/OtherProfile`} onClick={onClick}>
+            <Link to={`/profile/user/${post.userID._id}`} onClick={onClick}>
               <h3 id={post?.userID?._id}>{post?.userID?.username}</h3>
             </Link>
             <p>{post?.userID?.name}</p>
@@ -87,6 +93,7 @@ const Post = ({ Posts, setOtherUserId, user }) => {
               {likeStates[post._id]?.likesCount || 0} Likes
             </span>
           </div>
+          <button onClick={() => handleComment(post._id)}>comments</button>
         </div>
       ))}
     </div>
