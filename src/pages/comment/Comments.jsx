@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import './Comment.css'
 import {
@@ -32,8 +32,7 @@ const Comment = () => {
     setNewComment(e.target.value)
   }
 
-  const handleAddComment = async (e) => {
-    e.preventDefault()
+  const handleAddComment = async () => {
     const commentData = { comment: newComment }
     try {
       const addedComment = await createComment(postId, commentData)
@@ -46,6 +45,11 @@ const Comment = () => {
 
   return (
     <div className="comment-page">
+      <div className="profile-header-links">
+        <Link to="/dashboard/home" className="profile-footer__link">
+          Back to Home
+        </Link>
+      </div>
       {post && (
         <div className="post">
           <h2>{post?.userID?.username}</h2>

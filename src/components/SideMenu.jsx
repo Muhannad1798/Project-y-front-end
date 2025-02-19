@@ -4,7 +4,11 @@ const SideMenu = ({ user, logOut }) => {
   return (
     <div>
       <div className="sidebar__top">
-        <h2>Y Logo</h2>
+        <img
+          src="../../public/b57bb790-021f-4bcb-9767-e696bff72ffb.png"
+          alt="Old Twitter Egg"
+          className="profile-avatar"
+        />{' '}
       </div>
       <div className="sidebar__menu">
         <ul>

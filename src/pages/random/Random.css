@@ -1,0 +1,58 @@
+.random-users-container {
+  display: block;
+  margin-top: 30px;
+}
+
+.user-card {
+  width: 100%;
+  max-width: 300px;
+  margin: 2px auto;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.user-card:hover {
+  transform: scale(1.05);
+}
+
+.user-card h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 6px;
+}
+
+.user-card p {
+  font-size: 14px;
+  color: #4c9aff;
+  margin: 4px 0;
+}
+
+.user-card .user-info {
+  opacity: 0;
+  animation: fadeIn 0.4s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.random-users-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.user-link {
+  text-decoration: none;
+  color: inherit;
+}

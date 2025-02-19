@@ -72,3 +72,43 @@ h3 {
   text-align: right;
   min-width: 80px;
 }
+
+.conversation-item {
+  display: flex;
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  align-items: center;
+}
+
+.conversation-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.conversation-avatar {
+  margin-right: 15px;
+}
+
+.avatar-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.conversation-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.conversation-info h3 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.message-preview {
+  font-size: 14px;
+  color: #888;
+}

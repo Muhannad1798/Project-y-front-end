@@ -2,7 +2,7 @@ import './Search.css'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { getUsers } from '../../services/userService'
-
+import OneUser from '../OneUser/OneUser'
 const Search = ({ setOtherUserId }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
@@ -55,7 +55,7 @@ const Search = ({ setOtherUserId }) => {
               className="search-result"
               onClick={() => setOtherUserId(user._id)}
             >
-              <h3>{user.username}</h3>
+              <OneUser user={user} />
             </Link>
           ))}
         </div>

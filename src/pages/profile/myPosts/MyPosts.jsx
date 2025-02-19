@@ -1,7 +1,10 @@
 import './MyPosts.css'
+import { useNavigate } from 'react-router-dom'
 import { deletePost } from '../../../services/userService'
 
-const MyPosts = ({ myPosts, setMyPosts }) => {
+const MyPosts = ({ myPosts, setMyPosts, user, getMyPost }) => {
+  const navigate = useNavigate()
+
   const handleDelete = async (postId) => {
     const confirmDelete = window.confirm(
       'Are you sure you want to delete this post?'
@@ -9,14 +12,8 @@ const MyPosts = ({ myPosts, setMyPosts }) => {
     if (confirmDelete) {
       try {
         await deletePost(postId)
-
-        setMyPosts((prevPosts) =>
-          prevPosts
-            .filter((post) => post._id !== postId)
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        )
-
-        console.log('Post deleted successfully')
+        navigate(`/${user._id}/profile`)
+        getMyPost()
       } catch (error) {
         console.error('Error deleting the post:', error)
       }

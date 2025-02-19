@@ -1,16 +1,20 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import './ProfilePage.css'
 import MyPosts from './myPosts/MyPosts'
 import { useEffect, useState } from 'react'
 import { getUserFollowers, getUserFollowing } from '../../services/userService'
 
 const ProfilePage = ({ user, myPosts, getMyPost, setMyPosts }) => {
+  const { userid } = useParams()
   const [following, setFollowing] = useState(0)
   const [followers, setFollowers] = useState(0)
 
   const getUserFw = async () => {
     try {
-      const FollowingData = await getUserFollowing(user._id)
+      console.log(userid)
+      console.log(user._id)
+
+      const FollowingData = await getUserFollowing(userid)
 
       setFollowing(FollowingData.following.length)
     } catch (error) {
@@ -21,7 +25,7 @@ const ProfilePage = ({ user, myPosts, getMyPost, setMyPosts }) => {
 
   const getUserFr = async () => {
     try {
-      const FollowersData = await getUserFollowers(user._id)
+      const FollowersData = await getUserFollowers(userid)
 
       setFollowers(FollowersData.followers.length)
     } catch (error) {
@@ -33,11 +37,12 @@ const ProfilePage = ({ user, myPosts, getMyPost, setMyPosts }) => {
   useEffect(() => {
     getUserFr()
     getUserFw()
+    getMyPost()
   }, [])
   return (
     <div className="profile-container">
       <div className="profile-header-links">
-        <Link to="/settings" className="profile-footer__link">
+        <Link to="/edit/profile" className="profile-footer__link">
           Edit Profile
         </Link>
         <Link to="/dashboard/home" className="profile-footer__link">
@@ -48,14 +53,14 @@ const ProfilePage = ({ user, myPosts, getMyPost, setMyPosts }) => {
       <header className="profile-header">
         <div className="profile-header__info">
           <img
-            src="https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/egg-3442-e1f6463624338504cd021bf23aef8441@1x.jpg"
+            src={user?.pic}
             alt="Old Twitter Egg"
             className="profile-avatar"
           />
           <div className="profile-header__details">
-            <h2>{user.name}</h2>
-            <p>@{user.username}</p>
-            <p>Bio: {user.bio}</p>
+            <h2>{user?.name}</h2>
+            <p>@{user?.username}</p>
+            <p>Bio: {user?.bio}</p>
           </div>
         </div>
       </header>
