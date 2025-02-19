@@ -4,7 +4,7 @@ import Conversation from './conversation/Conversation'
 import './ConversationsPage.css'
 import { getUserConversation } from '../../services/userService'
 
-const ConversationsPage = () => {
+const ConversationsPage = ({ dmUser, setDmUser }) => {
   const [conversations, setConversations] = useState([])
 
   const getConversations = async () => {
@@ -35,6 +35,8 @@ const ConversationsPage = () => {
               <Conversation
                 key={conversation._id}
                 conversation={conversation}
+                dmUser={dmUser}
+                setDmUser={setDmUser}
               />
             ))
           ) : (

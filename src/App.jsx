@@ -17,9 +17,11 @@ import OtherProfile from './pages/otherProfile/OtherProfile'
 import ConversationsPage from './pages/conversationsPage/ConversationsPage'
 import DMChat from './pages/conversationsPage/DMChat/DMChat'
 import Comment from './pages/comment/Comments'
+import EdiiteMyProfile from './pages/profile/edite/EditeMyProfile'
 function App() {
   const [otherUserId, setOtherUserId] = useState(null)
   const [user, setUser] = useState(null)
+  const [dmUser, setDmUser] = useState(null)
   const getUserProfile = async () => {
     try {
       const data = await getProfile()
@@ -134,6 +136,7 @@ function App() {
                 myPosts={myPosts}
                 getPost={getPost}
                 getFollowingPost={getFollowingPost}
+                getMyPost={getMyPost}
               />
             }
           />
@@ -150,12 +153,23 @@ function App() {
               />
             }
           />
-          <Route path="/dm" element={<ConversationsPage />} />
+          <Route
+            path="/dm"
+            element={
+              <ConversationsPage dmUser={dmUser} setDmUser={setDmUser} />
+            }
+          />
           <Route
             path="/conversations/:convId"
-            element={<DMChat user={user} />}
+            element={
+              <DMChat user={user} dmUser={dmUser} setDmUser={setDmUser} />
+            }
           />
           <Route path="/posts/:postId/comments" element={<Comment />} />
+          <Route
+            path="/edit/profile"
+            element={<EdiiteMyProfile user={user} setUser={setUser} />}
+          />
         </Routes>
       </main>
     </>

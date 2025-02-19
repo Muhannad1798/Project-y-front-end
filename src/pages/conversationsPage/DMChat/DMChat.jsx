@@ -7,7 +7,7 @@ import {
 } from '../../../services/authService'
 import './DMChat.css'
 
-const DMChat = ({ user }) => {
+const DMChat = ({ user, dmUser }) => {
   const { convId } = useParams()
   const [messages, setMessages] = useState([])
   const [newMessage, setNewMessage] = useState('')
@@ -56,7 +56,14 @@ const DMChat = ({ user }) => {
         </Link>
       </div>
       <div className="chat-header">
-        <h2>Conversation</h2>
+        <div className="dm-user-info">
+          <img
+            src={dmUser?.pic}
+            alt={`${dmUser?.name}'s profile`}
+            className="dm-user-pic"
+          />
+          <h2>{dmUser?.name || 'Unknown User'}</h2>
+        </div>
       </div>
 
       <div className="chat-container">
@@ -66,7 +73,7 @@ const DMChat = ({ user }) => {
               <div
                 key={message._id}
                 className={`message ${
-                  message.sender == currentUserId ? 'sent' : 'received'
+                  message.sender === currentUserId ? 'sent' : 'received'
                 }`}
               >
                 <p>{message.message}</p>

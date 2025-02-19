@@ -118,6 +118,7 @@ const OtherProfile = ({ user, getPost, getFollowingPost }) => {
     getOtherUserFr()
     getOtherUserFw()
     getOtherUserPosts()
+    handleFollow()
   }, [userId])
 
   useEffect(() => {
@@ -148,7 +149,7 @@ const OtherProfile = ({ user, getPost, getFollowingPost }) => {
           <header className="profile-header">
             <div className="profile-header__info">
               <img
-                src="https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/egg-3442-e1f6463624338504cd021bf23aef8441@1x.jpg"
+                src={otherUser?.pic}
                 alt="Old Twitter Egg"
                 className="profile-avatar"
               />

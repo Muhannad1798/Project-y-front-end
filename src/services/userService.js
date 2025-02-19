@@ -120,3 +120,21 @@ export const createComment = async (postId, comment) => {
 
   return response.data
 }
+
+export const editProfile = async (userData) => {
+  try {
+    console.log('userdata')
+    console.log(userData)
+
+    const response = await client.put('/user/edit/profile', userData)
+
+    // Log the entire response object
+    console.log('Full response:', response.config.data)
+    console.log('Response data:', response.data) // Log the data separately
+
+    return response.config.data
+  } catch (error) {
+    console.error('Error in editProfile:', error)
+    throw error
+  }
+}
